@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - lts/*
 before_script:
+  - cd vwc_fng_tracker_fe
   - yarn install
 script:
   - yarn run test

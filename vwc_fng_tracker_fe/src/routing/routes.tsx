@@ -3,6 +3,7 @@ import { Route, Router } from 'react-router-dom';
 import App from '../App';
 import Home from '../components/Home';
 import Callback from '../components/Callback';
+import { ApplicantPage } from '../components/ApplicantPage/ApplicantPage';
 import Auth from '../services/Auth';
 import history from '../services/history';
 
@@ -23,7 +24,10 @@ export const makeMainRoutes = () => {
         <Route path="/callback" render={ (props) => {
           handleAuthentication(props);
           return <Callback {...props} />
-        }} />
+          }} />
+        <Route path="/applicant/:uid" render={ (props) => {
+          return <ApplicantPage auth={auth} {...props} />
+          }} />
       </div>
     </Router>
   )

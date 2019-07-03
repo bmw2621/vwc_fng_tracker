@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { ApplicantList } from '../ApplicantList/ApplicantList'
+import { Grid, Paper, Typography } from "@material-ui/core"
 
-class Home extends Component<any> {
+export class Home extends Component<any> {
   login() {
     this.props.auth.login();
   }
@@ -9,11 +11,11 @@ class Home extends Component<any> {
     const { isAuthenticated } = this.props.auth;
 
     return (
-      <div className="Home">
-        <div className="container">
+      <div className="Home" style={{ marginTop:20, padding: 30 }}>
+        <Grid container spacing={10} justify="center">
           {
             isAuthenticated() && (
-              <h4>You are logged in!</h4>
+              <ApplicantList></ApplicantList>
             )
           }
           {
@@ -28,10 +30,8 @@ class Home extends Component<any> {
               </h4>
             )
           }
-        </div>
+        </Grid>
       </div>
     );
   }
 }
-
-export default Home;

@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { Navbar, Button } from 'react-bootstrap';
 import { Route, Redirect } from 'react-router-dom';
 import './App.css';
-
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar'
+import TypoGraphy from '@material-ui/core/Typography'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Home, Lock, LockOpen } from '@material-ui/icons'
 interface IProps {
 
 }
@@ -37,41 +43,52 @@ class App extends Component<any> {
 
     return (
       <div className="App">
-        <div className="Navbar">
-          <div className="Header">
-            <div className="Brand">
-              <a href="#">{ process.env.REACT_APP_WEBSITE_NAME }</a>
-            </div>
-            <button
-              className="btn-margin"
-              onClick={this.goTo.bind(this, 'home')}
-            >
-              Home
-            </button>
+        <AppBar color="primary" position="static">
+          <Toolbar>
+            <List component="nav">
+              <ListItem component="div">
+                <ListItemText inset>
+                  <TypoGraphy
+                    variant="subtitle1"
+                    color="inherit">
+                    { `${process.env.REACT_APP_WEBSITE_NAME}`}
+                    </TypoGraphy>
+                  </ListItemText>
+                  <ListItemText inset
+                    className="btn-margin"
+                    onClick={this.goTo.bind(this, 'home')}>
+                      <TypoGraphy color="inherit" variant="subtitle1">
+                        <Home />
+                      </TypoGraphy>
+                  </ListItemText>
             {
               !isAuthenticated() && (
-                  <button
+                  <ListItemText inset
                     id="qsLoginBtn"
                     className="btn-margin"
-                    onClick={this.login.bind(this)}
-                  >
-                    Log In
-                  </button>
+                    onClick={this.login.bind(this)}>
+                    <TypoGraphy color="inherit" variant="subtitle1">
+                      <LockOpen />
+                    </TypoGraphy>
+                  </ListItemText>
                 )
             }
             {
               isAuthenticated() && (
-                  <button
+                  <ListItemText inset
                     id="qsLogoutBtn"
                     className="btn-margin"
-                    onClick={this.logout.bind(this)}
-                  >
-                    Log Out
-                  </button>
+                    onClick={this.logout.bind(this)}>
+                    <TypoGraphy color="inherit" variant="subtitle1">
+                      <Lock />
+                    </TypoGraphy>
+                  </ListItemText>
                 )
             }
-          </div>
-        </div>
+            </ListItem>
+            </List>
+          </Toolbar>
+        </AppBar>
       </div>
     );
   }

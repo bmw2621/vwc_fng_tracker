@@ -1,5 +1,5 @@
 import { Triple } from '../types'
-import { buildMutation } from './buildmutation'
+import { buildMutation } from './'
 
 describe('buildMutation', () => {
   const expected = `{

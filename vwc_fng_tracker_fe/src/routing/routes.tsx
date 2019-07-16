@@ -1,34 +1,36 @@
-import React from 'react';
-import { Route, Router } from 'react-router-dom';
-import App from '../App';
-import Home from '../components/Home';
-import Callback from '../components/Callback';
-import { ApplicantPage } from '../components/ApplicantPage/ApplicantPage';
-import Auth from '../services/Auth';
-import history from '../services/history';
-
-const auth = new Auth();
-
-const handleAuthentication = ({location}) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
-}
+import React from 'react'
+import { Route, Router } from 'react-router-dom'
+import { App } from '../App'
+import {
+  Home,
+  ApplicantPage,
+  ApplicantList,
+  ApplicantForm
+} from '../components'
+import history from '../services/history'
 
 export const makeMainRoutes = () => {
   return (
-    <Router history={history}>
-      <div>
-        <Route path="/" render={ (props) => <App auth={auth} {...props} /> } />
-        <Route path="/home" render={ (props) => <Home auth={auth} {...props} /> } />
-        <Route path="/callback" render={ (props) => {
-          handleAuthentication(props);
-          return <Callback {...props} />
-          }} />
-        <Route path="/applicant/:uid" render={ (props) => {
-          return <ApplicantPage auth={auth} {...props} />
-          }} />
-      </div>
+    <Router history={history} >
+      <Route path="/" render={ (props) => {
+        return (<App {...props} />)
+      }} />
+      <Route path="/home" render={ (props) => {
+        return (<Home {...props} />)
+      }} />
+      <Route path="/applicants" render={ (props) => {
+        return (<ApplicantList />)
+      }} />
+      <Route exact path="/applicant/:uid/edit" render={ (props) => {
+        return (<ApplicantForm  {...props} />)
+      }} />
+      <Route exact path="/applicant/:uid" render={ (props) => {
+        return (<ApplicantPage {...props} />)
+      }} />
+      <Route path="/applicant/new" render={ (props) => {
+        return (<ApplicantForm  {...props} />)
+      }} />
+
     </Router>
   )
 }

@@ -1,4 +1,4 @@
-export function getApplicantsList(): string {
+export function applicantsQuery(): string {
   return `
     {
 			applicants(func: eq(name, "Applicants")) @normalize {

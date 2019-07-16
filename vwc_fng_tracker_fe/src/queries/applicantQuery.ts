@@ -1,4 +1,4 @@
-export function getApplicant(uid: string): string {
+export function applicantQuery(uid: string): string {
   return `
     {
       applicant(func:uid(${uid})) {
@@ -6,7 +6,10 @@ export function getApplicant(uid: string): string {
         firstName
         lastName
         email
+        phoneNumber
+        dateJoined
         accounts: ownsAccount {
+          uid
           name
           type
         }

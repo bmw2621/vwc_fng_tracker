@@ -3,7 +3,7 @@ import { buildMutation } from './buildMutation'
 
 export const applicantMutation = (applicant: ApplicantData):string => {
   const keys:string[] = Object.keys(applicant).filter((key) => key !== 'accounts' && key !== 'groupId')
-  const existing:boolean = Object.keys(applicant).includes('uid')
+  const existing: boolean = Object.keys(applicant).includes('uid') && applicant.uid !== 'new'
   const identifier = existing ? `<${applicant.uid}>` : '_:a'
   const triples:Triple[] = keys
     .filter(key => key !== 'uid')

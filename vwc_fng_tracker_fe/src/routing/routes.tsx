@@ -7,6 +7,8 @@ import {
   ApplicantList,
   ApplicantForm
 } from '../components'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import history from '../services/history'
 
 export const makeMainRoutes = () => {
@@ -21,16 +23,21 @@ export const makeMainRoutes = () => {
       <Route path="/applicants" render={ (props) => {
         return (<ApplicantList />)
       }} />
-      <Route exact path="/applicant/:uid/edit" render={ (props) => {
-        return (<ApplicantForm  {...props} />)
+      <Route exact path="/applicant/new" render={ (props) => {
+        return (<MuiPickersUtilsProvider utils={MomentUtils}>
+          <ApplicantForm  {...props} />
+        </MuiPickersUtilsProvider>)
       }} />
-      <Route exact path="/applicant/:uid" render={ (props) => {
-        return (<ApplicantPage {...props} />)
+    <Route exact path="/applicant/edit/:uid" render={ (props) => {
+      return (<MuiPickersUtilsProvider utils={MomentUtils}>
+        <ApplicantForm  {...props} />
+        </MuiPickersUtilsProvider>)
       }} />
-      <Route path="/applicant/new" render={ (props) => {
-        return (<ApplicantForm  {...props} />)
+    <Route exact path="/applicant/show/:uid" render={ (props) => {
+      return (
+        <ApplicantPage {...props} />
+        )
       }} />
-
     </Router>
   )
 }

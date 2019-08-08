@@ -1,6 +1,6 @@
 import { applicantsQuery, applicantQuery } from '../queries'
 import { applicantMutation } from '../mutations'
-import { runQuery } from '../helpers'
+import { runQuery, runMutation } from '../helpers'
 
 export const fetchApplicants = async (store) => {
   store.setState({applicantsListStatus: 'LOADING'})
@@ -22,7 +22,9 @@ export const fetchApplicant = async (store, uid) => {
   store.setState({selectedApplicantStatus: 'LOADING'})
   const response = await runQuery(applicantQuery(uid))
     .then(res => res.json())
-    .then(json => json.data)
+    .then(json => {
+      return json.data
+    })
     .catch(err => err.message)
   const applicant = response.applicant[0]
   store.setState({
@@ -36,7 +38,7 @@ export const saveSelectedApplicant = (store, values) => {
   const applicant = values
   const group = store.state.groups.filter((group) => group.name === 'Applicants')[0]
   const appWGroup = Object.assign(applicant, { groupId: group.uid })
-  const response = runQuery(applicantMutation(appWGroup))
+  const response = runMutation(applicantMutation(appWGroup))
     .then(res => res.json)
     .catch(err => err.message)
   return response

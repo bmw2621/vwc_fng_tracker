@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { ApplicantListItem } from '../ApplicantListItem/ApplicantListItem'
-import { Grid } from "@material-ui/core"
+import { Chip, Grid } from "@material-ui/core"
 import { useGlobal } from '../../store'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const listItems = (applicants, goTo) => {
   return applicants
@@ -42,11 +43,19 @@ export const ApplicantList = () => {
   return (
     <Grid container>
       <Grid item xs={2} />
-      <Grid item xs={8}>
+      <Grid item xs={7}>
         <h3>Applicants</h3>
-        <hr />
+      </Grid>
+      <Grid item xs={1}>
+        <br />
+        <Chip
+          label="NEW APPLICANT"
+          color="primary"
+          icon={<FontAwesomeIcon icon="plus-circle" size="lg" ></FontAwesomeIcon>} onClick={() => goTo('applicant/new')}
+          clickable />
       </Grid>
       <Grid item xs={2} />
+      <Grid item xs={12}><hr /></Grid>
       { listItems(applicants, goTo) }
     </Grid>
   )

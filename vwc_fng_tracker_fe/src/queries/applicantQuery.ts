@@ -8,6 +8,7 @@ export function applicantQuery(uid: string): string {
         email
         phoneNumber
         dateJoined
+        active
         accounts: ownsAccount {
           uid
           name

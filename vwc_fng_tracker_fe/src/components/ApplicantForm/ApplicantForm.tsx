@@ -1,69 +1,25 @@
 import React, { useEffect } from 'react'
 import { useGlobal } from '../../store'
+import { useForm } from '../../hooks'
 import { withRouter } from 'react-router'
-import { Button, Grid, FormControlLabel, Switch, TextField } from '@material-ui/core'
+import { DatePicker } from '../DatePicker'
+import { Button, Grid, FormControlLabel, Switch, TextField  } from '@material-ui/core'
+
+import moment from 'moment'
 
 const ApplicantFrm = (props) => {
   const [globalState, globalActions] = useGlobal()
 
+  const save = () => {
+    console.log(values)
+  }
+
   const {
-    selectedApplicant,
-    selectedApplicantLoaded,
-    groups,
-    groupsLoaded,
-  } = globalState
-
-  const [values, setValues] = React.useState({
-    uid: null,
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    active: true,
-    dateJoined: new Date().toISOString().slice(0,10),
-    groupId: null
-  })
-
-  useEffect(() => {
-    if (props.match.params.uid) {
-      if (!selectedApplicantLoaded) {
-        globalActions
-          .fetchApplicant(props.match.params.uid)
-          .then(() => setValues(Object.assign(values, selectedApplicant)))
-      } else {
-        setValues(Object.assign(values, selectedApplicant))
-      }
-    }
-    if(!groupsLoaded) {
-      globalActions
-        .fetchGroups()
-        .then(() => {
-          const group = groups.filter((group) => group.name === 'Applicants')[0]
-          const grpid =
-            groups.length > 0 ? group.uid : null
-          setValues(Object.assign(values, {groupId: grpid}))
-        })
-    }
-  }, [props.match.params.uid, groupsLoaded, selectedApplicantLoaded, globalActions, values, selectedApplicant, groups])
-
-  const handleChange = (name) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [name]: event.target.value })
-  }
-
-  const handleSave = (event) => {
-    globalActions
-      .saveSelectedApplicant(values)
-      .then((response) => {
-        globalActions.setState({selectedApplicantLoaded: false})
-        globalActions.navigate(`/applicant/${selectedApplicant.uid}`)
-      })
-  }
-
-  // const handleReset = () => {
-  // }
-  //
-  // const componentWillUnmount = () => {
-  // }
+    handleChange,
+    handleDateChange,
+    handleSubmit,
+    values
+  } = useForm(save, globalState, 'selectedApplicant', globalActions)
 
   return (
     <Grid container spacing={2}>
@@ -77,25 +33,26 @@ const ApplicantFrm = (props) => {
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={8}>
-            <form>
+            <form onSubmit={ handleSubmit }>
+              <input type="hidden" name="uid" value={ values.uid || '_:a' } />
               <TextField
                 required
                 id="firstName"
                 label="First Name"
                 margin="normal"
                 variant="outlined"
-                value={ values.firstName }
-                onChange={ handleChange('firstName') }
+                value={ values.firstName || '' }
+                onChange={ handleChange }
               />
-              <br />
+              &nbsp;
               <TextField
                 required
                 id="lastName"
                 label="Last Name"
                 margin="normal"
                 variant="outlined"
-                value={ values.lastName }
-                onChange={ handleChange('lastName') }
+                value={ values.lastName || '' }
+                onChange={ handleChange }
               />
               <br />
               <TextField
@@ -105,40 +62,41 @@ const ApplicantFrm = (props) => {
                 margin="normal"
                 variant="outlined"
                 autoComplete="email"
-                value={ values.email }
-                onChange={ handleChange('email') }
+                value={ values.email || '' }
+                onChange={ handleChange }
               />
-              <br />
-              <TextField
-                required
+              &nbsp;
+              <DatePicker
+                hiddenLabel="dateJoined"
                 id="dateJoined"
                 label="Date Joined"
                 margin="normal"
-                variant="outlined"
-                type="date"
+                variant="inline"
+                inputVariant="outlined"
+                format="MM/DD/YYYY"
                 value={ values.dateJoined }
-                onChange={ handleChange('dateJoined') }
+                changeHandler={ handleChange }
               />
               <br />
               <TextField
-                id="phone_number"
+                id="phoneNumber"
                 label="Phone number"
                 margin="normal"
                 variant="outlined"
-                value={ values.phoneNumber }
-                onChange={ handleChange('phoneNumber') }
+                value={ values.phoneNumber || '' }
+                onChange={ handleChange }
               />
               <br />
               <FormControlLabel
                 control={
                   <Switch
-                    onChange={ handleChange('active') }
-                    value={ values.active } />
+                    onChange={ handleChange }
+                    value={ values.active || true } />
                 }
                 label="Active"
               />
               <br />
-              <Button variant="contained" color="primary" onClick={handleSave}>
+              <Button variant="contained" color="primary" type="submit">
                 Save
               </Button> &nbsp;&nbsp;
               <Button variant="contained" color="secondary">

@@ -1,2 +1,1 @@
-export const setState =
-  (store, state) => store.setState(state)
+export const setState = (store, state) => store.setState(state)

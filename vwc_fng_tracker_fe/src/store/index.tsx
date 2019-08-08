@@ -8,6 +8,8 @@ const initialState = {
   applicantsLoaded: false,
   applicantsListStatus: 'EMPTY',
   groups: [],
+  groupsLoaded: false,
+  groupsStatus: 'EMPTY',
   history: '',
   selectedApplicant: {},
   selectedApplicantLoaded: false,

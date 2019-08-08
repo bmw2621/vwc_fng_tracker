@@ -22,7 +22,7 @@ export class ApplicantListItem extends Component<any> {
 
   render() {
     return (
-          <Card onClick={() => this.props.goToApplicant((`applicant/${this.applicant.uid}`))}>
+                                                         <Card onClick={() => this.props.goToApplicant((`applicant/show/${this.applicant.uid}`))}>
             <CardActionArea>
               <CardContent>
                 <TypoGraphy  variant="body2" component="span">

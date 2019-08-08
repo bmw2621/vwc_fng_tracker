@@ -11,7 +11,17 @@ export class Triple implements ITriple {
     this.obj = obj
   }
 
+  parseObj(): string {
+    const split = this.obj.split('')
+    if(split[0] === '<' && split[split.length - 1] === '>') {
+      return this.obj
+    } else {
+      return `"${this.obj}"`
+    }
+  }
+
   toString(): string {
-    return `${this.subj} ${this.pred} ${this.obj} .`
+    const obj = this.parseObj()
+    return `${this.subj} ${this.pred} ${obj} .`
   }
 }

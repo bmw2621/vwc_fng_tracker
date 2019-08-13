@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { KeyboardDatePicker } from '@material-ui/pickers'
-import moment from 'moment'
-
-
 
 export const DatePicker = (props) => {
   const [state, setState] = useState({value: props.value, changing: false});
@@ -33,7 +30,7 @@ export const DatePicker = (props) => {
       <KeyboardDatePicker
         required
         autoOk
-        hiddenLabel={props.hiddenLabel}
+        hiddenLabel={props.hiddenlabel}
         label={props.label}
         margin={props.margin}
         variant={props.variant}

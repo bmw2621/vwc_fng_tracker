@@ -3,23 +3,59 @@ import { useGlobal } from '../../store'
 import { useForm } from '../../hooks'
 import { withRouter } from 'react-router'
 import { DatePicker } from '../DatePicker'
-import { Button, Grid, FormControlLabel, Switch, TextField  } from '@material-ui/core'
-
+import {
+  Button,
+  Grid,
+  FormControl,
+  FormControlLabel,
+  Switch,
+  TextField,
+  Input,
+  InputLabel
+} from '@material-ui/core'
+import MaskedInput from 'react-text-mask'
 import moment from 'moment'
 
 const ApplicantFrm = (props) => {
   const [globalState, globalActions] = useGlobal()
 
   const save = () => {
-    console.log(values)
+    globalActions.fetchGroups()
+    .then(() => {
+      globalActions.saveSelectedApplicant()
+    })
   }
 
   const {
     handleChange,
-    handleDateChange,
     handleSubmit,
     values
   } = useForm(save, globalState, 'selectedApplicant', globalActions)
+
+  const {selectedApplicant, selectedApplicantLoaded} = globalState
+
+  const phoneRef: any = React.createRef()
+  const phoneTextMaskRender = (props, ref) => {
+        return (
+      <MaskedInput
+        { ...props }
+        ref={ ref }
+        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+        placeholderChar={'\u2000'}
+        showMask
+        id={props.id}
+        value={values.phoneNumber || '(1  )    -    '}
+        onChange={ props.onChange }
+      />
+    )
+  }
+  const PhoneTextMask = React.forwardRef(phoneTextMaskRender)
+
+  useEffect(() => {
+    if(props.match.params.uid && !selectedApplicantLoaded) {
+      globalActions.fetchApplicant(props.match.params.uid)
+    }
+  })
 
   return (
     <Grid container spacing={2}>
@@ -40,7 +76,6 @@ const ApplicantFrm = (props) => {
                 id="firstName"
                 label="First Name"
                 margin="normal"
-                variant="outlined"
                 value={ values.firstName || '' }
                 onChange={ handleChange }
               />
@@ -50,7 +85,6 @@ const ApplicantFrm = (props) => {
                 id="lastName"
                 label="Last Name"
                 margin="normal"
-                variant="outlined"
                 value={ values.lastName || '' }
                 onChange={ handleChange }
               />
@@ -60,36 +94,39 @@ const ApplicantFrm = (props) => {
                 id="email"
                 label="Email"
                 margin="normal"
-                variant="outlined"
                 autoComplete="email"
                 value={ values.email || '' }
                 onChange={ handleChange }
               />
               &nbsp;
               <DatePicker
-                hiddenLabel="dateJoined"
+                hiddenlabel="dateJoined"
                 id="dateJoined"
                 label="Date Joined"
                 margin="normal"
                 variant="inline"
-                inputVariant="outlined"
                 format="MM/DD/YYYY"
                 value={ values.dateJoined }
                 changeHandler={ handleChange }
               />
               <br />
-              <TextField
-                id="phoneNumber"
-                label="Phone number"
-                margin="normal"
-                variant="outlined"
-                value={ values.phoneNumber || '' }
-                onChange={ handleChange }
-              />
+              <FormControl>
+                <InputLabel htmlFor="phoneNumber">
+                  Phone Number
+                </InputLabel>
+                <Input
+                  inputComponent={ PhoneTextMask as any }
+                  ref={phoneRef}
+                  id="phoneNumber"
+                  onChange={ handleChange }
+                  value={values.phoneNumber || '(1  )    -    '}
+                />
+              </FormControl>
               <br />
               <FormControlLabel
                 control={
                   <Switch
+                    id="active"
                     onChange={ handleChange }
                     value={ values.active || true } />
                 }
@@ -111,3 +148,11 @@ const ApplicantFrm = (props) => {
 }
 
 export const ApplicantForm = withRouter(ApplicantFrm)
+// <!-- TextField
+              //   id="phoneNumber"
+              //   label="Phone number"
+              //   margin="normal"
+              //   variant="outlined"
+              //   value={ values.phoneNumber || '' }
+              //   onChange={ handleChange }
+              // / -->

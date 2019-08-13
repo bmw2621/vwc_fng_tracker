@@ -29,7 +29,9 @@ export const ApplicantList = () => {
     globalActions.setState({
       applicantsLoaded: false,
       applicantsListStatus: 'EMPTY',
-      applicants: []
+      applicants: [],
+      selectedApplicantLoaded: false,
+      selectedApplicant: {}
     })
     globalActions.navigate(`/${route}`);
   }

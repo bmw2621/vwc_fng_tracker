@@ -78,6 +78,7 @@
     "react-reactive-form": "^1.0.30",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-text-mask": "^5.4.3",
     "recompose": "^0.30.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",

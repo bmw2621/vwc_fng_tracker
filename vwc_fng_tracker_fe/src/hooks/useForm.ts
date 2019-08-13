@@ -1,4 +1,3 @@
-import moment from 'moment'
 export const useForm = (callback, state, model, actions) => {
   const values = state[model] || {}
 
@@ -16,13 +15,8 @@ export const useForm = (callback, state, model, actions) => {
     actions.setState(model, newVal)
   }
 
-  const handleDateChange = (date, event) => {
-    debugger
-  }
-
   return {
     handleChange,
-    handleDateChange,
     handleSubmit,
     values,
   }

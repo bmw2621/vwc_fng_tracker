@@ -12,6 +12,7 @@ export class Triple implements ITriple {
   }
 
   parseObj(): string {
+    console.log(this.obj)
     const split = this.obj.split('')
     if(split[0] === '<' && split[split.length - 1] === '>') {
       return this.obj

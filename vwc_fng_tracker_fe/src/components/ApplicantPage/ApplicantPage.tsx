@@ -9,15 +9,19 @@ import { withRouter } from 'react-router'
 const ApplicantPg = (props) => {
   const [globalState, globalActions] = useGlobal()
 
-  const { selectedApplicant, selectedApplicantLoaded } = globalState
+  const { selectedApplicant, selectedApplicantLoaded } =
+    globalState
   const handleEdit = () => {
-    globalActions.navigate(`/applicant/edit/${props.match.params.uid}`)
+    globalActions
+      .setState({selectedApplicantLoaded: false})
+    globalActions
+      .navigate(`/applicant/edit/${props.match.params.uid}`)
   }
 
   const ghCal =
     () => new GithubCalendar(`.calendar-${props.match.params.uid}`, 'eprislac')
 
-  const accounts = selectedApplicant.accounts
+  const accounts = selectedApplicant.accounts || []
 
   const accountsList = () => {
     return accounts
@@ -35,14 +39,6 @@ const ApplicantPg = (props) => {
         )
       })
   }
-
-  // const githubAcct = () => {:w
-  //
-  //   const ghAcct = accounts
-  //     .filter((acct) => acct['type'] === 'github')[0]
-  //
-  //   return ghAcct ? ghAcct['name'] : ''
-  // }
 
   useEffect(() => {
     if(!selectedApplicantLoaded) {

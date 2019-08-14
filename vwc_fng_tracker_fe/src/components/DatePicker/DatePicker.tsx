@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 
 export const DatePicker = (props) => {
-  const [state, setState] = useState({value: props.value, changing: false});
+  const [state, setState] =
+		useState({value: props.value, changing: false})
   const inputRef: any = React.createRef()
 
   const customInputRender = (props, ref) => (<input type="hidden" ref={ ref } id={ props.id } value={state.value} onClick={ props.onClick } />)

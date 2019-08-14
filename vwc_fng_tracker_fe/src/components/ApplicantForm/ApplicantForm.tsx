@@ -6,15 +6,11 @@ import { DatePicker } from '../DatePicker'
 import {
   Button,
   Grid,
-  FormControl,
   FormControlLabel,
   Switch,
-  TextField,
-  Input,
-  InputLabel
+  TextField
 } from '@material-ui/core'
-import MaskedInput from 'react-text-mask'
-import moment from 'moment'
+import { PhoneInput } from '../PhoneInput'
 
 const ApplicantFrm = (props) => {
   const [globalState, globalActions] = useGlobal()
@@ -32,24 +28,7 @@ const ApplicantFrm = (props) => {
     values
   } = useForm(save, globalState, 'selectedApplicant', globalActions)
 
-  const {selectedApplicant, selectedApplicantLoaded} = globalState
-
-  const phoneRef: any = React.createRef()
-  const phoneTextMaskRender = (props, ref) => {
-        return (
-      <MaskedInput
-        { ...props }
-        ref={ ref }
-        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-        placeholderChar={'\u2000'}
-        showMask
-        id={props.id}
-        value={values.phoneNumber || '(1  )    -    '}
-        onChange={ props.onChange }
-      />
-    )
-  }
-  const PhoneTextMask = React.forwardRef(phoneTextMaskRender)
+  const { selectedApplicantLoaded } = globalState
 
   useEffect(() => {
     if(props.match.params.uid && !selectedApplicantLoaded) {
@@ -110,18 +89,12 @@ const ApplicantFrm = (props) => {
                 changeHandler={ handleChange }
               />
               <br />
-              <FormControl>
-                <InputLabel htmlFor="phoneNumber">
-                  Phone Number
-                </InputLabel>
-                <Input
-                  inputComponent={ PhoneTextMask as any }
-                  ref={phoneRef}
-                  id="phoneNumber"
-                  onChange={ handleChange }
-                  value={values.phoneNumber || '(1  )    -    '}
-                />
-              </FormControl>
+              <PhoneInput
+                id="phoneNumber"
+                labelText="Phone Number"
+                onChange={ handleChange }
+                value={ values.phoneNumber || '0000000000'  }
+              />
               <br />
               <FormControlLabel
                 control={

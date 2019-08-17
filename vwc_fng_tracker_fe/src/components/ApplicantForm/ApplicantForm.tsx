@@ -88,7 +88,7 @@ const ApplicantFrm = (props) => {
                 value={ values.dateJoined }
                 changeHandler={ handleChange }
               />
-              <br />
+              <br /><br />
               <PhoneInput
                 id="phoneNumber"
                 labelText="Phone Number"
@@ -121,11 +121,4 @@ const ApplicantFrm = (props) => {
 }
 
 export const ApplicantForm = withRouter(ApplicantFrm)
-// <!-- TextField
-              //   id="phoneNumber"
-              //   label="Phone number"
-              //   margin="normal"
-              //   variant="outlined"
-              //   value={ values.phoneNumber || '' }
-              //   onChange={ handleChange }
-              // / -->
+

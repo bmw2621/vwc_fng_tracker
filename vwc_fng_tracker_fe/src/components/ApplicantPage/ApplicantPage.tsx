@@ -1,48 +1,37 @@
 import React, { useEffect } from 'react'
-import { Grid, Button, Chip } from '@material-ui/core'
+import { Grid, Button } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GithubCalendar from 'github-calendar'
 import 'github-calendar/dist/github-calendar-responsive.css'
 import { useGlobal } from '../../store'
 import { withRouter } from 'react-router'
+import { AccountsList } from '../AccountsList'
 
 const ApplicantPg = (props) => {
   const [globalState, globalActions] = useGlobal()
 
   const { selectedApplicant, selectedApplicantLoaded } =
     globalState
+  const applicantUid = props.match.params.uid
   const handleEdit = () => {
     globalActions
       .setState({selectedApplicantLoaded: false})
     globalActions
-      .navigate(`/applicant/edit/${props.match.params.uid}`)
+      .navigate(`/applicant/edit/${applicantUid}`)
   }
 
   const ghCal =
-    () => new GithubCalendar(`.calendar-${props.match.params.uid}`, 'eprislac')
+    () => new GithubCalendar(`.calendar-${applicantUid}`, 'eprislac')
 
   const accounts = selectedApplicant.accounts || []
 
   const accountsList = () => {
-    return accounts
-      .map((account, index) => {
-        return(
-          <li key={`account-${index}`}>
-            <Chip
-              label={account.name}
-              color="primary"
-              icon={<FontAwesomeIcon icon={['fab', account.type]} size="lg" ></FontAwesomeIcon>}
-              onDelete={() => null}
-              onClick={() => null}
-              clickable />
-          </li>
-        )
-      })
+    return (<AccountsList accounts={ accounts } applicantUid={ applicantUid } />)
   }
 
   useEffect(() => {
     if(!selectedApplicantLoaded) {
-      globalActions.fetchApplicant(props.match.params.uid)
+      globalActions.fetchApplicant(applicantUid)
       ghCal()
     }
   })
@@ -67,10 +56,9 @@ const ApplicantPg = (props) => {
             <FontAwesomeIcon icon="phone-alt" ></FontAwesomeIcon> <strong>Phone: </strong><a href={`tel:${selectedApplicant.phoneNumber}`}>{selectedApplicant.phoneNumber}</a> <br /> <br />
             <FontAwesomeIcon icon="calendar-alt" ></FontAwesomeIcon> <strong>Joined: </strong> {new Date(selectedApplicant.dateJoined).toLocaleDateString()} <br /> <br />
             <strong>Active: </strong> {`${selectedApplicant.active}`}<br /> <br />
-            <strong>Accounts</strong>
-            <ul>{ selectedApplicantLoaded && accountsList() }</ul>
+            { selectedApplicantLoaded && accountsList() }
           </Grid>
-          <Grid item xs={8} className={ `calendar-${props.match.params.uid}` }/>
+          <Grid item xs={8} className={ `calendar-${applicantUid}` }/>
         </Grid>
       </Grid>
       <Grid item xs={2} />

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const App = () => {
   const classes = useStyles()
-  const [globalState, globalActions] = useGlobal()
+  const [_globalState, globalActions] = useGlobal()
   const goTo = (url) => {
     globalActions.navigate(url)
   }

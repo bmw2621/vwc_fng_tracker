@@ -3,7 +3,7 @@ import useGlobalHook from 'use-global-hook'
 import * as actions from '../actions'
 
 const initialState = {
-  account_types: [],
+  accountTypes: [],
   applicants: [],
   applicantsLoaded: false,
   applicantsListStatus: 'EMPTY',
@@ -14,6 +14,13 @@ const initialState = {
   selectedApplicant: {},
   selectedApplicantLoaded: false,
   selectedApplicantListStatus: 'EMPTY',
+  newAccount: {
+    applicantUid: '',
+    uid: '_:a',
+    accountType: '',
+    name: ''
+  },
+  showAccountForm: false,
 }
 
 export const useGlobal = useGlobalHook(React, initialState, actions)

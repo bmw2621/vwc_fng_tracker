@@ -1,4 +1,4 @@
-export function applicantsQuery(): string {
+export const applicantsQuery = (): string => {
   return `
     {
       applicants(func: eq(personType, "applicant")){

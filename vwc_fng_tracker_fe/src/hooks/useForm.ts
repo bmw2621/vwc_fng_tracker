@@ -20,5 +20,5 @@ export const useForm = (callback, state, model, actions) => {
     handleSubmit,
     values,
   }
-};
+}
 

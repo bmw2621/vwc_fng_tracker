@@ -1,4 +1,4 @@
-export function applicantQuery(uid: string): string {
+export const applicantQuery = (uid: string): string => {
   return `
     {
       applicant(func:uid(${uid})) {

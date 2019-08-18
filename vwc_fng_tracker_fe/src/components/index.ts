@@ -1,4 +1,4 @@
-export { Home } from './Home/Home'
-export { ApplicantPage } from './ApplicantPage/ApplicantPage'
-export { ApplicantList } from './ApplicantList/ApplicantList'
-export { ApplicantForm } from './ApplicantForm/ApplicantForm'
+export { ApplicantPage } from './ApplicantPage'
+export { ApplicantList } from './ApplicantList'
+export { ApplicantForm } from './ApplicantForm'
+export { NavBar } from './NavBar'

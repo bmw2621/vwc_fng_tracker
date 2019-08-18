@@ -6,6 +6,7 @@ import 'github-calendar/dist/github-calendar-responsive.css'
 import { useGlobal } from '../../store'
 import { withRouter } from 'react-router'
 import { AccountsList } from '../AccountsList'
+import { Comments } from '../Comments'
 
 const ApplicantPg = (props) => {
   const [globalState, globalActions] = useGlobal()
@@ -48,7 +49,6 @@ const ApplicantPg = (props) => {
             <br />
             <Button color="default" size="small" onClick={handleEdit}>Edit</Button>
           </Grid>
-          <Grid item xs={12}><hr /></Grid>
         </Grid>
         <Grid container spacing={2}>
           <Grid item xs={4}>

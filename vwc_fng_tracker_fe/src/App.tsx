@@ -2,11 +2,21 @@ import React from 'react'
 import ReactDOM from "react-dom"
 import PropTypes from 'prop-types'
 import './App.css'
-import {AppBar, Button, Toolbar} from '@material-ui/core'
+import {AppBar, Button, Toolbar, Grid} from '@material-ui/core'
 import TypoGraphy from '@material-ui/core/Typography'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useGlobal } from './store'
-
+import { useAuth0 } from "./react-auth0-wrapper"
+import { Route, Router } from 'react-router-dom'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import MomentUtils from '@date-io/moment'
+import history from './services/history'
+import {
+  NavBar,
+  ApplicantPage,
+  ApplicantList,
+  ApplicantForm,
+} from './components'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,40 +32,52 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
+const makeMainRoutes = () => {
+  return (
+    <Router history={history} >
+      <Route path="/" render={ (props) => {
+        return (<NavBar { ...props} />)
+      }} />
+			<Route path="/applicants" render={ (props) => {
+        return (<ApplicantList />)
+      }} />
+      <Route exact path="/applicant/new" render={ (props) => {
+        return (<MuiPickersUtilsProvider utils={MomentUtils}>
+          <ApplicantForm  {...props} />
+        </MuiPickersUtilsProvider>)
+      }} />
+    <Route exact path="/applicant/edit/:uid" render={ (props) => {
+      return (<MuiPickersUtilsProvider utils={MomentUtils}>
+        <ApplicantForm  {...props} />
+        </MuiPickersUtilsProvider>)
+      }} />
+    <Route exact path="/applicant/show/:uid" render={ (props) => {
+      return (
+        <ApplicantPage {...props} />
+        )
+      }} />
+    </Router>
+  )
+}
 
-export const App = () => {
+export const App = (props) => {
+  const { loading } = useAuth0()
   const classes = useStyles()
-  const [_globalState, globalActions] = useGlobal()
-  const goTo = (url) => {
-    globalActions.navigate(url)
+  const [globalState, globalActions] = useGlobal()
+
+  if (loading) {
+    return (
+      <div>Loading...</div>
+    )
   }
 
-  const handleApplicantClick = () => {
-    goTo('/applicants')
-  }
-
-  const handleDashboardClick = () => {
-    goTo('/dashboard')
-  }
   return (
     <div className={classes.root}>
-      <AppBar color="primary" position="static">
-        <Toolbar  variant="dense">
-          <TypoGraphy
-            variant="h6"
-            className={classes.title}>
-            { `${process.env.REACT_APP_WEBSITE_NAME}`}
-            </TypoGraphy>
-          [<Button color="inherit">DASHBOARD</Button>]&nbsp;
-          [<Button color="inherit" onClick={handleApplicantClick}>APPLICANTS</Button>]
-        </Toolbar>
-      </AppBar>
+			{ makeMainRoutes() }
     </div>
-  );
-
+  )
 }
-const rootElement = document.getElementById("root")
-ReactDOM.render(<App />, rootElement)
+
 App.propTypes = {
   props: PropTypes.object
 }

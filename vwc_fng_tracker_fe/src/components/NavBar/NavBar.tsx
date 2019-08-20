@@ -44,29 +44,29 @@ export const NavBar = (props) => {
     <AppBar color="primary" position="static">
         <Toolbar  variant="dense">
           <Grid container>
-            <Grid xs={ 2 }>&nbsp;</Grid>
-            <Grid xs={ 5 }>
+            <Grid item xs={ 3 }>&nbsp;</Grid>
+            <Grid item xs={ 4 }>
               <TypoGraphy
                 variant="h6"
                 className={classes.title}>
                 { `${process.env.REACT_APP_WEBSITE_NAME}`}
                 </TypoGraphy>
 						</Grid>
-						<Grid xs={ 3 }>
-              [<Button color="inherit">DASHBOARD</Button>]&nbsp;
-              [<Button color="inherit" onClick={ handleApplicantClick }>APPLICANTS</Button>]
+						<Grid item xs={ 3 }>
+              [<Button key={`nbBtn0`} color="inherit">DASHBOARD</Button>]&nbsp;
+              [<Button key={`nbBtn1`} color="inherit" onClick={ handleApplicantClick }>APPLICANTS</Button>]
               {
                 !isAuthenticated && (
-                  [<Button color="inherit" onClick={ () => loginWithPopup({}) }>LOG IN</Button>]
+                  [<Button key={`nbBtn2`} color="inherit" onClick={ () => loginWithPopup({}) }>LOG IN</Button>]
                 )
               }
               {
                 isAuthenticated && (
-                  [<Button color="inherit" onClick={ () => logout() }>LOG OUT</Button>]
+                  [<Button key={`nbBtn3`} color="inherit" onClick={ () => logout() }>LOG OUT</Button>]
                 )
               }
             </Grid>
-          	<Grid xs={ 2 }>&nbsp;</Grid>
+          	<Grid item xs={ 2 }>&nbsp;</Grid>
           </Grid>
         </Toolbar>
       </AppBar>

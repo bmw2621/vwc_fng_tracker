@@ -32,28 +32,28 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-const makeMainRoutes = () => {
+const makeMainRoutes = (user) => {
   return (
-    <Router history={history} >
+    <Router history={ history }  >
       <Route path="/" render={ (props) => {
-        return (<NavBar { ...props} />)
+        return (<NavBar { ...props } user={ user }/>)
       }} />
 			<Route path="/applicants" render={ (props) => {
-        return (<ApplicantList />)
+        return (<ApplicantList { ...props } user={ user } />)
       }} />
       <Route exact path="/applicant/new" render={ (props) => {
         return (<MuiPickersUtilsProvider utils={MomentUtils}>
-          <ApplicantForm  {...props} />
+          <ApplicantForm  { ...props } user={ user } />
         </MuiPickersUtilsProvider>)
       }} />
     <Route exact path="/applicant/edit/:uid" render={ (props) => {
-      return (<MuiPickersUtilsProvider utils={MomentUtils}>
-        <ApplicantForm  {...props} />
+      return (<MuiPickersUtilsProvider utils={ MomentUtils }>
+        <ApplicantForm  { ...props } user={ user } />
         </MuiPickersUtilsProvider>)
       }} />
     <Route exact path="/applicant/show/:uid" render={ (props) => {
       return (
-        <ApplicantPage {...props} />
+        <ApplicantPage { ...props } user={ user } />
         )
       }} />
     </Router>
@@ -61,11 +61,11 @@ const makeMainRoutes = () => {
 }
 
 export const App = (props) => {
-  const { loading } = useAuth0()
+  const { loading, user } = useAuth0()
   const classes = useStyles()
   const [globalState, globalActions] = useGlobal()
 
-  if (loading) {
+  if (loading || !user) {
     return (
       <div>Loading...</div>
     )
@@ -73,7 +73,7 @@ export const App = (props) => {
 
   return (
     <div className={classes.root}>
-			{ makeMainRoutes() }
+			{ makeMainRoutes(user) }
     </div>
   )
 }

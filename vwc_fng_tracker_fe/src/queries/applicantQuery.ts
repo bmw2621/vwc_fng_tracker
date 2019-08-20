@@ -14,6 +14,12 @@ export const applicantQuery = (uid: string): string => {
           name
           type
         }
+        comments: hasComment {
+          uid
+          commenterName
+          commentDate
+          text
+        }
       }
     }
   `

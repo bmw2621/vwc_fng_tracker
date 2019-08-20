@@ -4,6 +4,7 @@ export {
   fetchApplicants,
   saveSelectedApplicant
 } from './applicants'
+export { saveComment } from './comments'
 export { saveAccount } from './accounts'
 export { fetchAccountTypes } from './accountTypes'
 export { navigate } from './navigate'

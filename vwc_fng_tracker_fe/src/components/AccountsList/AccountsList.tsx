@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export const AccountsList = (props) => {
 
   const [globalState, globalActions] = useGlobal()
-  const { doDelete, fetchApplicant, fetchAccountTypes } = globalActions
+  const { doDelete, fetchApplicant, fetchAccountTypes, setState } = globalActions
   const { accountTypesLoaded } = globalState
 
   const uiStyles = {
@@ -29,11 +29,12 @@ export const AccountsList = (props) => {
   useEffect(()=> {
     if(!accountTypesLoaded) {
       fetchAccountTypes()
+      setState({accountTypesLoaded: true})
     }
   })
 
   const handleAdd = () => {
-    globalActions.setState({showAccountForm: true})
+    setState({showAccountForm: true})
   }
 
   const accounts = props.accounts || []
@@ -68,7 +69,7 @@ export const AccountsList = (props) => {
         <FontAwesomeIcon
           style={ {color: 'green'} }
           icon="plus-circle"
-          size="lg"
+          size="3x"
         />
       </span>
       <ul style={ uiStyles }>

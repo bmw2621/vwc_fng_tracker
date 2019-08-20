@@ -3,6 +3,7 @@ import { ApplicantListItem } from '../ApplicantListItem/ApplicantListItem'
 import { Chip, Grid } from "@material-ui/core"
 import { useGlobal } from '../../store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import PropTypes from 'prop-types'
 
 const listItems = (applicants, goTo) => {
   return applicants
@@ -43,12 +44,12 @@ export const ApplicantList = () => {
 	}, [applicants, applicantsLoaded, globalActions])
 
   return (
-    <Grid container>
-      <Grid item xs={2} />
-      <Grid item xs={7}>
+    <Grid container style={{backgroundColor: '#eeeeee'}}>
+      <Grid item xs={3}>&nbsp;</Grid>
+      <Grid item xs={4}>
         <h3>Applicants</h3>
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={2} style={{textAlign: 'right'}}>
         <br />
         <Chip
           label="NEW APPLICANT"
@@ -56,11 +57,16 @@ export const ApplicantList = () => {
           icon={<FontAwesomeIcon icon="plus-circle" size="lg" ></FontAwesomeIcon>} onClick={() => goTo('applicant/new')}
           clickable />
       </Grid>
-      <Grid item xs={2} />
+      <Grid item xs={3}>&nbsp;</Grid>
       <Grid item xs={12}><hr /></Grid>
       { listItems(applicants, goTo) }
     </Grid>
   )
+}
+
+ApplicantList.propTypes = {
+  props: PropTypes.object,
+  user: PropTypes.object
 }
 
 

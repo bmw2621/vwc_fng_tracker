@@ -71,7 +71,7 @@ export const AccountForm = (props) => {
     <form onSubmit={ handleSubmit }>
       <input type="hidden" id="applicantUid" value={ props.applicantUid } />
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <FormControl>
             <InputLabel htmlFor="accountType">Account Type</InputLabel>
             <Select
@@ -88,7 +88,7 @@ export const AccountForm = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <FormControl>
             <TextField
               id="name"
@@ -100,8 +100,8 @@ export const AccountForm = (props) => {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={6}>&nbsp;</Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>&nbsp;</Grid>
+        <Grid item xs={3} style={{textAlign: 'right'}}>
           <Button
             size="small"
             variant="contained"
@@ -111,7 +111,7 @@ export const AccountForm = (props) => {
             Cancel
           </Button>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3} style={{textAlign: 'right'}}>
           <Button
             size="small"
             variant="contained"
@@ -120,7 +120,7 @@ export const AccountForm = (props) => {
             Save
           </Button>
         </Grid>
-        <Grid item xs={2}>&nbsp;</Grid>
+        <Grid item xs={3}>&nbsp;</Grid>
       </Grid>
     </form>
   )

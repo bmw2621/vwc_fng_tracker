@@ -3,9 +3,10 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Grid
 } from "@material-ui/core"
-import  TypoGraphy from '@material-ui/core/Typography'
-import {ApplicantData} from '../../types/ApplicantData'
+import TypoGraphy from '@material-ui/core/Typography'
+import { ApplicantData } from '../../types/ApplicantData'
 
 export class ApplicantListItem extends Component<any> {
   applicant: ApplicantData
@@ -22,7 +23,10 @@ export class ApplicantListItem extends Component<any> {
 
   render() {
     return (
-                                                         <Card onClick={() => this.props.goToApplicant((`applicant/show/${this.applicant.uid}`))}>
+      <Grid container spacing={ 2 } style={{marginBottom: 2}}>
+        <Grid item xs={ 2 }>&nbsp;</Grid>
+        <Grid item xs={ 8 }>
+             <Card onClick={() => this.props.goToApplicant((`applicant/show/${this.applicant.uid}`))}>
             <CardActionArea>
               <CardContent>
                 <TypoGraphy  variant="body2" component="span">
@@ -37,6 +41,9 @@ export class ApplicantListItem extends Component<any> {
               </CardContent>
             </CardActionArea>
           </Card>
+        </Grid>
+        <Grid item xs={ 2 }>&nbsp;</Grid>
+      </Grid>
 
     )
   }

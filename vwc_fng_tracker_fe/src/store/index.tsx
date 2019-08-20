@@ -20,7 +20,14 @@ const initialState = {
     accountType: '',
     name: ''
   },
-  showAccountForm: false,
+  currentComment: {
+    editing: false,
+    applicantUid: '',
+    commenterName: '',
+    uid: '_:newComment',
+    text: ''
+  },
+  showAccountForm: false
 }
 
 export const useGlobal = useGlobalHook(React, initialState, actions)

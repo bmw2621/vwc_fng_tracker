@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button, Paper } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GithubCalendar from 'github-calendar'
 import 'github-calendar/dist/github-calendar-responsive.css'
@@ -7,14 +7,33 @@ import { useGlobal } from '../../store'
 import { withRouter } from 'react-router'
 import { AccountsList } from '../AccountsList'
 import { Comments } from '../Comments'
+import { TaskList } from '../Tasks'
 import PropTypes from 'prop-types'
+import  TypoGraphy from '@material-ui/core/Typography'
+import { of } from 'rxjs'
+import {withLatestFrom, map } from 'rxjs/operators'
 
 const ApplicantPg = (props) => {
   const [globalState, globalActions] = useGlobal()
   const user = props.user
-  const { selectedApplicant, selectedApplicantLoaded } =
-    globalState
-  const { setState, navigate } = globalActions
+  const {
+    selectedApplicant,
+    selectedApplicantLoaded,
+    selectedApplicantTasks,
+    taskListTypes,
+    taskListTypesLoaded,
+    associatedTasks,
+    applicantTasks
+  } = globalState
+  const {
+    setState,
+    navigate,
+    fetchTaskListTypes,
+    addTaskList,
+    fetchApplicant,
+    fetchAssociatedTasks,
+    addCompletedTask
+  } = globalActions
   const applicantUid = props.match.params.uid
   const handleEdit = () => {
     setState({selectedApplicantLoaded: false})
@@ -28,21 +47,61 @@ const ApplicantPg = (props) => {
   const comments = selectedApplicant.comments || []
 
   const accountsList = () => {
-    return (<AccountsList accounts={ accounts } applicantUid={ applicantUid } />)
+    return (
+      <AccountsList
+        accounts={ accounts }
+        applicantUid={ applicantUid } />
+    )
+  }
+
+  const taskList = {
+    name: 'Applicant Task List',
+    tasks: [
+      { name: 'task 1', completed: false },
+      { name: 'task 2', completed: false },
+      { name: 'task 3', completed: false },
+      { name: 'task 4', completed: false }
+    ]
+  }
+
+  const createTaskList = () => {
+    of(fetchAssociatedTasks('applicant'))
+      .subscribe((obj) => {
+        obj.then(data => setState({associatedTasks: data.taskList}))
+      })
+  }
+
+  const handleTaskChange = (event, item) => {
+    const obj = {
+      uid: selectedApplicant.uid,
+      hasCompletedTask: {
+        uid: '_:uid',
+        completed: true,
+        dateCompleted: new Date(),
+        ...item
+      }
+    }
+
+    addCompletedTask(obj)
+      .then(() => fetchApplicant(selectedApplicant.uid))
   }
 
   useEffect(() => {
-    if(!selectedApplicantLoaded) {
-      globalActions.fetchApplicant(applicantUid)
-      setState({selectedApplicantLoaded: true})
+    if(!selectedApplicantLoaded)  {
+      fetchApplicant(applicantUid)
+      fetchTaskListTypes()
       ghCal()
-    }
-  })
+      setState({selectedApplicantLoaded: true})
+      createTaskList()
+      if(taskListTypesLoaded) {
+        createTaskList()
+      }
+  }})
 
   return (
     <Grid container>
-      <Grid item xs={3}>&nbsp;</Grid>
-      <Grid item xs={6}>
+      <Grid item xs={2}>&nbsp;</Grid>
+      <Grid item xs={8}>
         <Grid container spacing={2}>
           <Grid item xs={10}>
             <h3>Applicant: {selectedApplicant.firstName} {selectedApplicant.lastName}</h3>
@@ -59,16 +118,24 @@ const ApplicantPg = (props) => {
             <FontAwesomeIcon icon="calendar-alt" ></FontAwesomeIcon> <strong>Joined: </strong> {new Date(selectedApplicant.dateJoined).toLocaleDateString()} <br /> <br />
             <strong>Active: </strong> {`${selectedApplicant.active}`}<br /> <br />
             { selectedApplicantLoaded && accountsList() }
+            <TaskList
+              ownerUid={ selectedApplicant.uid }
+              associatedTasks={ associatedTasks || [] }
+              completedTasks={ selectedApplicant.completedTasks || []}
+              personType={ selectedApplicant.personType }
+              handleChange={ handleTaskChange }/>
             </Grid>
-            <Grid item xs={8}>
-              <Grid item xs={12} className={ `calendar-${applicantUid}` } />
+            <Grid item xs={8} style={{marginTop: 0, paddingTop: 0}}>
+              <h3 style={{marginTop: 0, paddingTop: 0}}>Github Traffic</h3>
+              <Paper>
+                <Grid item xs={12} className={ `calendar-${applicantUid}` } /></Paper>
               <Grid item xs={12} className="commentsContainer">
                 <Comments comments={ comments } applicantUid={ applicantUid } user={ user } />
               </Grid>
             </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={3}>&nbsp;</Grid>
+      <Grid item xs={2}>&nbsp;</Grid>
     </Grid>
   )
 }

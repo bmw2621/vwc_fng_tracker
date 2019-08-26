@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, TextField, Button } from '@material-ui/core'
+import { Grid, TextField, Button, Paper } from '@material-ui/core'
 import { useGlobal } from '../../store'
 import { useForm } from '../../hooks'
 
@@ -19,11 +19,13 @@ export const CommentForm = (props) => {
   }
 
   const save = () => {
+    const edited = values.uid != '_:newComment'
     const data = {
       uid: applicantUid,
       hasComment: {
         uid: values.uid,
         text: values.text,
+        edited: edited,
         commenterName: comment.commenterName,
         commentDate: comment.commentDate
       }
@@ -41,10 +43,11 @@ export const CommentForm = (props) => {
     useForm(save, globalState, 'currentComment', globalActions)
 
   return (
-    <Grid className="commentForm" container>
+    <Grid className="commentForm" style={{marginBottom: 2}} container>
+      <Paper>
+
       <form id="commentForm" onSubmit={ handleSubmit }>
         <Grid item xs={ 12 }>
-          <div className="MuiFormControl-root MuiTextField-root jss726 MuiFormControl-marginNormal">
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
               data-shrink="true"
@@ -53,16 +56,18 @@ export const CommentForm = (props) => {
             </label>
             <div className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline">
               <textarea
-                style={{width:300}}
+                style={{maxWidth:800, minWidth: 800}}
                 aria-invalid="false"
                 className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
                 id="text"
+                rows={ 6 }
                 onChange={ handleChange }
                 value={ values.text }
                 />
-            </div>
-          </div>
-        </Grid>
+              </div>
+
+            </Grid>
+            <Grid container style={{textAlign: 'right'}}>
         <Grid item xs={ 8 }>&nbsp;</Grid>
         <Grid item xs={ 2 }>
           <Button
@@ -82,7 +87,9 @@ export const CommentForm = (props) => {
             SUBMIT
           </Button>
         </Grid>
+      </Grid>
       </form>
+    </Paper>
     </Grid>
   )
 }

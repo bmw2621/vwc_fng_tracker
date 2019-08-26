@@ -53,7 +53,7 @@ export const Comment = (props) => {
 
   const handleCancel = (event) => {
     setState({currentComment: blankComment})
-    showForm = false
+    comment.editing = false
   }
 
   const showCommentForm = () => {
@@ -74,13 +74,15 @@ export const Comment = (props) => {
         <Grid item xs={12} style={{marginBottom: 0, paddingBottom: 0}}>
           <Card style={{fontSize: 0.5, marginBottom: 10}}>
             <Grid container>
-              <Grid item xs={ 8 }>
+              <Grid item xs={ 10 }>
                 <CardContent style={{paddingBottom: 0}}>
-                  <TypoGraphy color="primary">{ comment.commenterName }</TypoGraphy> <em>commented on</em> { moment(comment.commentDate).format('MMMM Do YYYY, h:mm:ss a') }
+                  <TypoGraphy color="primary">{ comment.commenterName }</TypoGraphy> <small>commented on <strong>{ moment(comment.commentDate).format('MMMM Do YYYY, h:mm:ss a') }</strong>
+                  { comment.edited ? ( <em> (edited)</em>) : ('') }
+                  </small>
                 </CardContent>
               </Grid>
-              <Grid item xs={ 4 } style={{textAlign: 'right', paddingRight: 0}}>
-                <CardActions style={{textAlign: 'right'}}>
+              <Grid item xs={ 2 } style={{textAlign: 'right', alignItems: 'right'}}>
+                <CardActions style={{textAlign: 'right', alignItems: 'right', paddingRight: 20}}>
 									<Button size="small" color="primary" onClick={ handleEdit }>Edit</Button>
 									<Button size="small" color="secondary" onClick={ handleDelete }>Delete</Button>
                 </CardActions>

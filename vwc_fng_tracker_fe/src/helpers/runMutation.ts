@@ -1,14 +1,19 @@
 import { dgClient } from './dgClient'
 
 export const runMutation = async (data) => {
-  dgClient.setDebugMode(true)
   const txn = dgClient.newTxn()
   try {
-    const res = await txn.mutate({
+    const retUid = await txn.mutate({
       setJson: data,
       commitNow: true
     })
-    console.info('Created new record with uid', res.data.uids[0])
+    .then((res) => {
+      const uid = res.data.uids.uid
+      console.info('Saved record with uid', uid)
+      return uid
+    })
+
+    return retUid
   } catch (error) {
     console.error('Database write error.', error)
   } finally {

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from "react-dom"
 import PropTypes from 'prop-types'
-import './App.css'
+import './App.scss'
 import {AppBar, Button, Toolbar, Grid} from '@material-ui/core'
 import TypoGraphy from '@material-ui/core/Typography'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -12,10 +12,16 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import MomentUtils from '@date-io/moment'
 import history from './services/history'
 import {
+  Home,
   NavBar,
   ApplicantPage,
   ApplicantList,
   ApplicantForm,
+  TaskListType,
+  TaskListTypeGrid,
+  TaskType,
+  TaskList,
+  Task
 } from './components'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,10 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const makeMainRoutes = (user) => {
   return (
     <Router history={ history }  >
-      <Route path="/" render={ (props) => {
-        return (<NavBar { ...props } user={ user }/>)
+      <Route exact path="/" render={ (props) => {
+        return (<Home { ...props } user={ user } />)
       }} />
-			<Route path="/applicants" render={ (props) => {
+			<Route exact path="/applicants" render={ (props) => {
         return (<ApplicantList { ...props } user={ user } />)
       }} />
       <Route exact path="/applicant/new" render={ (props) => {
@@ -46,14 +52,19 @@ const makeMainRoutes = (user) => {
           <ApplicantForm  { ...props } user={ user } />
         </MuiPickersUtilsProvider>)
       }} />
-    <Route exact path="/applicant/edit/:uid" render={ (props) => {
-      return (<MuiPickersUtilsProvider utils={ MomentUtils }>
-        <ApplicantForm  { ...props } user={ user } />
-        </MuiPickersUtilsProvider>)
+      <Route exact path="/applicant/edit/:uid" render={ (props) => {
+        return (<MuiPickersUtilsProvider utils={ MomentUtils }>
+          <ApplicantForm  { ...props } user={ user } />
+          </MuiPickersUtilsProvider>)
+        }} />
+      <Route exact path="/applicant/show/:uid" render={ (props) => {
+        return (
+          <ApplicantPage { ...props } user={ user } />
+        )
       }} />
-    <Route exact path="/applicant/show/:uid" render={ (props) => {
-      return (
-        <ApplicantPage { ...props } user={ user } />
+      <Route exact path="/task-list-types" render={ (props) => {
+        return (
+          <TaskListType { ...props } user={ user } />
         )
       }} />
     </Router>
@@ -65,15 +76,23 @@ export const App = (props) => {
   const classes = useStyles()
   const [globalState, globalActions] = useGlobal()
 
-  if (loading || !user) {
-    return (
-      <div>Loading...</div>
-    )
-  }
-
   return (
     <div className={classes.root}>
-			{ makeMainRoutes(user) }
+      <NavBar user={ user || {} }/>
+      { loading && (
+        <Grid container>
+          <Grid item xs={12}>&nbsp;</Grid>
+          <Grid xs={3}>&nbsp;</Grid>
+          <Grid item style={{textAlign: 'center'}} xs={6}>
+            <img
+              src="https://d33wubrfki0l68.cloudfront.net/359a0a795a1e113744e8efa61f2ad8ced49a8c47/237e1/static/flag-047465dbe1f353eed264afc41a089c7a.gif"
+              alt="#VetsWhoCode Logo"
+              className="logo_holder" />
+          </Grid>
+          <Grid xs={3}>&nbsp;</Grid>
+        </Grid>
+          ) }
+      { !loading && user && makeMainRoutes(user) }
     </div>
   )
 }

@@ -18,7 +18,12 @@ export const applicantQuery = (uid: string): string => {
           uid
           commenterName
           commentDate
+          edited
           text
+        }
+        completedTasks: hasCompletedTask {
+          uid
+          expand(_all_)
         }
       }
     }

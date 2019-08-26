@@ -40,36 +40,41 @@ export const NavBar = (props) => {
     goTo('/dashboard')
   }
 
+  const handleTaskListTypesClick = () => {
+    goTo('/task-list-types')
+  }
+
   return (
-    <AppBar color="primary" position="static">
-        <Toolbar  variant="dense">
-          <Grid container>
-            <Grid item xs={ 3 }>&nbsp;</Grid>
-            <Grid item xs={ 4 }>
-              <TypoGraphy
-                variant="h6"
-                className={classes.title}>
-                { `${process.env.REACT_APP_WEBSITE_NAME}`}
-                </TypoGraphy>
-						</Grid>
-						<Grid item xs={ 3 }>
-              [<Button key={`nbBtn0`} color="inherit">DASHBOARD</Button>]&nbsp;
-              [<Button key={`nbBtn1`} color="inherit" onClick={ handleApplicantClick }>APPLICANTS</Button>]
-              {
-                !isAuthenticated && (
-                  [<Button key={`nbBtn2`} color="inherit" onClick={ () => loginWithPopup({}) }>LOG IN</Button>]
-                )
-              }
-              {
-                isAuthenticated && (
-                  [<Button key={`nbBtn3`} color="inherit" onClick={ () => logout() }>LOG OUT</Button>]
-                )
-              }
-            </Grid>
-          	<Grid item xs={ 2 }>&nbsp;</Grid>
+    <AppBar color="primary" position="static" style={{marginBottom: 5}}>
+      <Toolbar  variant="dense">
+        <Grid container>
+          <Grid item xs={ 2 }>&nbsp;</Grid>
+          <Grid item xs={ 4 }>
+            <TypoGraphy
+              variant="h6"
+              className={classes.title}>
+              { `${process.env.REACT_APP_WEBSITE_NAME}`}
+              </TypoGraphy>
           </Grid>
-        </Toolbar>
-      </AppBar>
+          <Grid item xs={ 4 } style={{textAlign: 'right',alignItems: 'right'}}>
+            <Button key={`nbBtn0`} color="inherit">DASHBOARD</Button>&nbsp;|&nbsp;
+            <Button key={`nbBtn1`} color="inherit" onClick={ handleApplicantClick }>APPLICANTS</Button>&nbsp;|&nbsp;
+            <Button key={`nbBtn2`} color="inherit" onClick={ handleTaskListTypesClick }>TASKLIST TYPES</Button>&nbsp;|&nbsp;
+            {
+              !isAuthenticated && (
+                [<Button key={`nbBtn2`} color="inherit" onClick={ () => loginWithPopup({}) }>LOG IN</Button>]
+              )
+            }
+            {
+              isAuthenticated && (
+                [<Button key={`nbBtn3`} color="inherit" onClick={ () => logout() }>LOG OUT</Button>]
+              )
+            }
+          </Grid>
+          <Grid item xs={ 2 }>&nbsp;</Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
 	)
 }
 

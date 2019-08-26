@@ -11,13 +11,22 @@ import {
   faCalendarAlt,
   faPhoneAlt,
   faPencilAlt,
-  faPlusCircle
+  faPlusCircle,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons'
 import { Auth0Provider } from './react-auth0-wrapper'
 import { App } from "./App"
 
 const config = AUTH_CONFIG
-library.add(fab, faEnvelope, faCalendarAlt, faPhoneAlt, faPlusCircle, faPencilAlt)
+library.add(
+  fab,
+  faEnvelope,
+  faCalendarAlt,
+  faPhoneAlt,
+  faPlusCircle,
+  faPencilAlt,
+  faTrash
+)
 
 
 

@@ -3,7 +3,7 @@ export const useForm = (callback, state, model, actions) => {
 
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
-      callback();
+      callback(event);
   };
 
   const handleChange = (event) => {

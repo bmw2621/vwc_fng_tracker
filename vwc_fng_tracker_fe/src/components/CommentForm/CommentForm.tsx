@@ -1,11 +1,11 @@
 import React from 'react'
-import { Grid, TextField, Button, Paper } from '@material-ui/core'
+import { Grid, Button, Paper } from '@material-ui/core'
 import { useGlobal } from '../../store'
 import { useForm } from '../../hooks'
 
 export const CommentForm = (props) => {
   const user = props.user
-  const { comment, applicantUid, editing, onCancel } = props
+  const { comment, applicantUid, onCancel } = props
   const [globalState, globalActions] = useGlobal()
   const { saveComment, fetchApplicant, setState } = globalActions
 
@@ -19,7 +19,7 @@ export const CommentForm = (props) => {
   }
 
   const save = () => {
-    const edited = values.uid != '_:newComment'
+    const edited = values.uid !== '_:newComment'
     const data = {
       uid: applicantUid,
       hasComment: {

@@ -27,3 +27,10 @@ export { navigate } from './navigate'
 export { setState } from './setState'
 export { getState } from './getState'
 export { doDelete } from './doDelete'
+export {
+  addRatingType,
+  fetchRatingTypes,
+  saveRatingType,
+  deleteRatingType,
+  saveRating
+} from './ratings'

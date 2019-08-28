@@ -1,0 +1,1 @@
+export { RatingsList } from './RatingsList'

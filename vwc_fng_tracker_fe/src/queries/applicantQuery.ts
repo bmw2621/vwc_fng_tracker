@@ -9,6 +9,7 @@ export const applicantQuery = (uid: string): string => {
         phoneNumber
         dateJoined
         active
+        personType
         accounts: ownsAccount {
           uid
           name
@@ -22,6 +23,10 @@ export const applicantQuery = (uid: string): string => {
           text
         }
         completedTasks: hasCompletedTask {
+          uid
+          expand(_all_)
+        }
+        ratings: hasRating {
           uid
           expand(_all_)
         }

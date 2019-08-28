@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 
 export const Home = (props, user) => {
-
   return (
     <div className="Home">
     </div>

@@ -36,9 +36,9 @@ export const NavBar = (props) => {
     goTo('/applicants')
   }
 
-  const handleDashboardClick = () => {
-    goTo('/dashboard')
-  }
+  // const handleDashboardClick = () => {
+  //   goTo('/dashboard')
+  // }
 
   const handleTaskListTypesClick = () => {
     goTo('/task-list-types')
@@ -57,7 +57,7 @@ export const NavBar = (props) => {
               </TypoGraphy>
           </Grid>
           <Grid item xs={ 4 } style={{textAlign: 'right',alignItems: 'right'}}>
-            <Button key={`nbBtn0`} color="inherit">DASHBOARD</Button>&nbsp;|&nbsp;
+            <Button disabled={ true } key={`nbBtn0`} color="inherit">DASHBOARD</Button>&nbsp;|&nbsp;
             <Button key={`nbBtn1`} color="inherit" onClick={ handleApplicantClick }>APPLICANTS</Button>&nbsp;|&nbsp;
             <Button key={`nbBtn2`} color="inherit" onClick={ handleTaskListTypesClick }>TASKLIST TYPES</Button>&nbsp;|&nbsp;
             {

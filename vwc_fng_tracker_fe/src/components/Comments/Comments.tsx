@@ -1,10 +1,9 @@
 import React from 'react'
 import { useGlobal } from '../../store'
-import { Grid, Card, CardContent, CardActionArea, CardActions, CardHeader } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { Comment } from '../Comment'
 import { CommentForm } from '../CommentForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import moment from 'moment'
 
 export const Comments = (props) => {
   const applicantUid = props.applicantUid

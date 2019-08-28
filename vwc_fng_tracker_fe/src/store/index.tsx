@@ -73,7 +73,10 @@ const initialState = {
   showTaskListTypeForm: false,
   showTaskTypeForm: false,
   associatedTasks: [],
-  applicantTasks: []
+  applicantTasks: [],
+  ratingTypes: [],
+  ratingTypesLoaded: false,
+  ratings: []
 }
 
 export const useGlobal = useGlobalHook(React, initialState, actions)

@@ -8,10 +8,9 @@ import { withRouter } from 'react-router'
 import { AccountsList } from '../AccountsList'
 import { Comments } from '../Comments'
 import { TaskList } from '../Tasks'
+import { RatingsList } from '../Ratings'
 import PropTypes from 'prop-types'
-import  TypoGraphy from '@material-ui/core/Typography'
 import { of } from 'rxjs'
-import {withLatestFrom, map } from 'rxjs/operators'
 
 const ApplicantPg = (props) => {
   const [globalState, globalActions] = useGlobal()
@@ -19,17 +18,13 @@ const ApplicantPg = (props) => {
   const {
     selectedApplicant,
     selectedApplicantLoaded,
-    selectedApplicantTasks,
-    taskListTypes,
     taskListTypesLoaded,
     associatedTasks,
-    applicantTasks
   } = globalState
   const {
     setState,
     navigate,
     fetchTaskListTypes,
-    addTaskList,
     fetchApplicant,
     fetchAssociatedTasks,
     addCompletedTask
@@ -52,16 +47,6 @@ const ApplicantPg = (props) => {
         accounts={ accounts }
         applicantUid={ applicantUid } />
     )
-  }
-
-  const taskList = {
-    name: 'Applicant Task List',
-    tasks: [
-      { name: 'task 1', completed: false },
-      { name: 'task 2', completed: false },
-      { name: 'task 3', completed: false },
-      { name: 'task 4', completed: false }
-    ]
   }
 
   const createTaskList = () => {
@@ -124,7 +109,10 @@ const ApplicantPg = (props) => {
               completedTasks={ selectedApplicant.completedTasks || []}
               personType={ selectedApplicant.personType }
               handleChange={ handleTaskChange }/>
-            </Grid>
+            <br />
+            <RatingsList />
+          </Grid>
+
             <Grid item xs={8} style={{marginTop: 0, paddingTop: 0}}>
               <h3 style={{marginTop: 0, paddingTop: 0}}>Github Traffic</h3>
               <Paper>

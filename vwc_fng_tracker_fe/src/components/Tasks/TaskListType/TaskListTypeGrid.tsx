@@ -8,7 +8,6 @@ import {
   TableEditColumn,
 } from '@devexpress/dx-react-grid-material-ui'
 import { useGlobal } from '../../../store'
-import { useForm } from '../../../hooks'
 
 export const TaskListTypeGrid = (props) => {
   const [globalState, globalActions] = useGlobal()

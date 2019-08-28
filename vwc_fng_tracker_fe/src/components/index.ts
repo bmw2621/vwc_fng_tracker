@@ -4,14 +4,15 @@ export { ApplicantForm } from './ApplicantForm'
 export { NavBar } from './NavBar'
 export { Home } from './Home'
 export {
-  TaskListType,
-  TaskListTypeGrid,
-  TaskListTypeForm,
-  TaskType,
-  TaskTypeForm,
-  TaskList,
-  TaskListForm,
   Task,
-  TaskForm,
-  TaskListProgress
+  TaskType,
+  TaskList,
+  TaskListType,
+  TaskTypeForm,
+  TaskListTypeGrid
 } from './Tasks'
+export {
+  RatingType,
+  RatingsList,
+  RatingTypeList
+} from './Ratings'

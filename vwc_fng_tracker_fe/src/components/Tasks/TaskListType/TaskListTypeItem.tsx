@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, IconButton, Grid, Paper, Chip } from '@material-ui/core'
-import TypoGraphy from '@material-ui/core/Typography'
+import React, { useState } from 'react'
+import { IconButton, Grid, Paper, Chip } from '@material-ui/core'
 import { useGlobal } from '../../../store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TaskListTypeForm } from './'
@@ -13,9 +12,7 @@ export const TaskListTypeItem = (props) => {
   const tlt = props.tlt
   const {
     setState,
-    saveTaskListType,
     editTaskListType,
-    fetchTaskListTypes,
     deleteTaskListType,
     deleteTaskType,
     addTaskType
@@ -23,7 +20,6 @@ export const TaskListTypeItem = (props) => {
 
   const {
     taskListTypes,
-    currentTaskListType,
     currentTaskType
   } = globalState
   const [newVisible, setNewVisible] = useState(false)
@@ -51,8 +47,6 @@ export const TaskListTypeItem = (props) => {
   	useShowHideForm(globalActions, tlt, blankTaskListType, 'edit')
 
   const [showEdit, hideEdit, editVisible] = showHideEdit
-
-  const { handleCancel } = props
 
   const handleDelete = (event) => {
     deleteTaskListType(tlt)

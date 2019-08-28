@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Checkbox, Grid, Paper } from '@material-ui/core'
 
 export const TaskList = (props) => {

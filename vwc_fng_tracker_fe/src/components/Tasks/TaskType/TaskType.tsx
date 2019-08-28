@@ -1,22 +1,8 @@
 import React from 'react'
-import { Button, IconButton, Grid, Paper, Chip } from '@material-ui/core'
-import { of } from 'rxjs'
-import { useGlobal } from '../../../store'
+import { Button, Grid, Paper } from '@material-ui/core'
 
 export const TaskType = (props) => {
-  const { item, ownerUid, handleDelete } = props
-  const [globalState, globalActions] = useGlobal()
-  const { doDelete, setState } = globalActions
-
-  const blankTaskType = {
-    uid: '_:uid',
-    name: '',
-    editing: false,
-    type: 'TaskType',
-    ownerUid: props.ownerUid,
-    displayOrder: 0,
-    associatedWith: ''
-  }
+  const { item, handleDelete } = props
 
   return(
     <Grid container key={ `taskType-${ item.uid }` }>

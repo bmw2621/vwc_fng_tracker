@@ -1,11 +1,8 @@
 import React from 'react'
-import ReactDOM from "react-dom"
 import PropTypes from 'prop-types'
 import './App.scss'
-import {AppBar, Button, Toolbar, Grid} from '@material-ui/core'
-import TypoGraphy from '@material-ui/core/Typography'
+import { Grid } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { useGlobal } from './store'
 import { useAuth0 } from "./react-auth0-wrapper"
 import { Route, Router } from 'react-router-dom'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
@@ -18,10 +15,7 @@ import {
   ApplicantList,
   ApplicantForm,
   TaskListType,
-  TaskListTypeGrid,
-  TaskType,
-  TaskList,
-  Task
+  RatingTypeList
 } from './components'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -67,6 +61,11 @@ const makeMainRoutes = (user) => {
           <TaskListType { ...props } user={ user } />
         )
       }} />
+      <Route exact path="/rating-types" render={ (props) => {
+        return (
+          <RatingTypeList { ...props } user={ user } />
+        )
+      }} />
     </Router>
   )
 }
@@ -74,7 +73,6 @@ const makeMainRoutes = (user) => {
 export const App = (props) => {
   const { loading, user } = useAuth0()
   const classes = useStyles()
-  const [globalState, globalActions] = useGlobal()
 
   return (
     <div className={classes.root}>

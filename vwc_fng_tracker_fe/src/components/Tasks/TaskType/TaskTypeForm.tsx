@@ -5,10 +5,7 @@ import { useForm } from '../../../hooks'
 
 export const TaskTypeForm = (props) => {
   const [globalState, globalActions] = useGlobal()
-  const { currentTaskType } = globalState
-  const { setState } = globalActions
   const {
-    tt,
     ownerUid,
     handleSave,
     handleCancel

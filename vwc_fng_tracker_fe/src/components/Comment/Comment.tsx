@@ -3,12 +3,9 @@ import { useGlobal } from '../../store'
 import {
   Grid,
   Button,
-  Paper,
   Card,
   CardContent,
-  CardActionArea,
   CardActions,
-  CardHeader
 } from '@material-ui/core'
 import  TypoGraphy from '@material-ui/core/Typography'
 import ReactMarkdown from 'react-markdown'
@@ -20,7 +17,7 @@ export const Comment = (props) => {
   const applicantUid = props.applicantUid
   const user = props.user
   const [globalState, globalActions] = useGlobal()
-  const { setState, getState, doDelete, fetchApplicant } = globalActions
+  const { setState, doDelete, fetchApplicant } = globalActions
   const { currentComment } = globalState
   let showForm =
     comment.editing || comment.uid === currentComment.uid

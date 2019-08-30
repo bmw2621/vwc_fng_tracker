@@ -2,7 +2,6 @@ import { ratingTypesQuery } from '../queries'
 import { runQuery, runMutation } from '../helpers'
 import { doDelete } from './doDelete'
 import { setState } from './setState'
-import { fetchApplicant } from './applicants'
 
 export const fetchRatingTypes =
   async (store) => {

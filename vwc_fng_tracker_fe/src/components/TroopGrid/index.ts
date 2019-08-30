@@ -1,0 +1,1 @@
+export { TroopGrid } from './TroopGrid'

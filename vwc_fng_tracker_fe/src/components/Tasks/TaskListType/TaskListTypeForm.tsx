@@ -3,14 +3,11 @@ import { Button, Grid, Paper, TextField } from '@material-ui/core'
 import TypoGraphy from '@material-ui/core/Typography'
 import { useForm } from '../../../hooks'
 import { useGlobal } from '../../../store'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { of } from 'rxjs'
 
 export const TaskListTypeForm = (props) => {
   const [globalState, globalActions] = useGlobal()
-  const { currentTaskListType, taskListTypes } = globalState
-  const { fetchTaskListTypes, saveTaskListType, setState } = globalActions
-  const { handleCancel, handleSave } = props
+  const { currentTaskListType } = globalState
+    const { handleCancel, handleSave } = props
   const title = () => {
     const newTitle = 'New TaskListType'
     const editTitle = 'Editing TaskListType'

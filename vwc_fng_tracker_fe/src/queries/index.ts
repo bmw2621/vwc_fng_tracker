@@ -1,5 +1,5 @@
 // queries/index.ts
-
+export { troopsQuery } from './troopsQuery'
 export { groupsQuery } from './groupsQuery'
 export { accountTypesQuery } from './accountTypesQuery'
 export { applicantsQuery } from './applicantsQuery'

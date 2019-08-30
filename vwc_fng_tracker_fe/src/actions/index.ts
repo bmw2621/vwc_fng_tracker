@@ -34,3 +34,8 @@ export {
   deleteRatingType,
   saveRating
 } from './ratings'
+export {
+  fetchTroops,
+  saveTroop,
+  deleteTroop
+} from './troops'

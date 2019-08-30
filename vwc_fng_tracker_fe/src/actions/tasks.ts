@@ -1,11 +1,8 @@
 import {
   associatedTaskListTypeQuery,
-  taskListTypesQuery,
-  taskTypesQuery,
-  taskListsQuery,
-  tasksQuery
+  taskListTypesQuery
 } from '../queries'
-import { of, Observable } from 'rxjs'
+import { of } from 'rxjs'
 import { doDelete } from './'
 import { runQuery, runMutation } from '../helpers'
 
@@ -94,10 +91,6 @@ export const editTaskListType = (store, item) => {
 export const deleteTaskListType = (store, item) => {
   const obj = { uid: item.uid }
   return of(doDelete(store, obj))
-}
-
-const handleErr = (error) => {
-
 }
 
 export const saveTaskListType = (store) => {

@@ -16,3 +16,5 @@ export {
   RatingsList,
   RatingTypeList
 } from './Ratings'
+export { TroopGrid } from './TroopGrid'
+export { FileInput } from './FileInput'

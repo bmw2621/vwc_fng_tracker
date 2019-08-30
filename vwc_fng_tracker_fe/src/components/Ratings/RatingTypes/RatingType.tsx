@@ -3,10 +3,8 @@ import {
   Grid,
   Paper,
 } from '@material-ui/core'
-import { RatingTypeForm } from './'
 
 export const RatingType = (props) => {
-  const { ratingType } = props
 
   return (
     <Grid container>

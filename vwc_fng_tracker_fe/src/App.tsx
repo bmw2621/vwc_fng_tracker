@@ -15,7 +15,8 @@ import {
   ApplicantList,
   ApplicantForm,
   TaskListType,
-  RatingTypeList
+  RatingTypeList,
+  TroopGrid
 } from './components'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,7 +40,15 @@ const makeMainRoutes = (user) => {
         return (<Home { ...props } user={ user } />)
       }} />
 			<Route exact path="/applicants" render={ (props) => {
-        return (<ApplicantList { ...props } user={ user } />)
+        return (
+          <MuiPickersUtilsProvider utils={ MomentUtils }>
+            <TroopGrid
+              { ...props }
+              user={ user }
+              personType="applicant"
+              title="Applicants" />
+            )
+          </MuiPickersUtilsProvider>)
       }} />
       <Route exact path="/applicant/new" render={ (props) => {
         return (<MuiPickersUtilsProvider utils={MomentUtils}>

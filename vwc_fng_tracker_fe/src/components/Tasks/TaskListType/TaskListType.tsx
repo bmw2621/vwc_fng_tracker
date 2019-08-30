@@ -4,7 +4,6 @@ import TypoGraphy from '@material-ui/core/Typography'
 import { useGlobal } from '../../../store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TaskListTypeForm, TaskListTypeItem } from './'
-import { useShowHideForm } from '../../../hooks'
 import { of } from 'rxjs'
 
 export const TaskListType = (props) => {
@@ -13,14 +12,12 @@ export const TaskListType = (props) => {
     taskListTypes,
 		taskListTypesLoaded,
     currentTaskListType,
-    currentTaskType
   } = globalState
 
   const {
     fetchTaskListTypes,
     setState,
     addTaskListType,
-    saveTaskListType
   } = globalActions
 
   const blankTaskListType = {

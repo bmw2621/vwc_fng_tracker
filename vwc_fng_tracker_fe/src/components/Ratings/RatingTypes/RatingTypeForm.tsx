@@ -5,7 +5,6 @@ import {
 } from '@material-ui/core'
 
 export const RatingTypeForm = (props) => {
-  const { ratingType } = props
 
   return (
     <Grid container>

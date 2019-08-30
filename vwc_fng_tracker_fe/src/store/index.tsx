@@ -76,7 +76,9 @@ const initialState = {
   applicantTasks: [],
   ratingTypes: [],
   ratingTypesLoaded: false,
-  ratings: []
+  ratings: [],
+  troops: [],
+  troopsLoaded: false
 }
 
 export const useGlobal = useGlobalHook(React, initialState, actions)

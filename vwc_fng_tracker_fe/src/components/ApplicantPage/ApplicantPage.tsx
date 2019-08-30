@@ -116,7 +116,8 @@ const ApplicantPg = (props) => {
             <Grid item xs={8} style={{marginTop: 0, paddingTop: 0}}>
               <h3 style={{marginTop: 0, paddingTop: 0}}>Github Traffic</h3>
               <Paper>
-                <Grid item xs={12} className={ `calendar-${applicantUid}` } /></Paper>
+                <div className={ `calendar calendar-responsive calendar-${applicantUid}` } />
+              </Paper>
               <Grid item xs={12} className="commentsContainer">
                 <Comments comments={ comments } applicantUid={ applicantUid } user={ user } />
               </Grid>

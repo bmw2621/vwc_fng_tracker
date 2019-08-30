@@ -12,7 +12,8 @@ import {
   faPhoneAlt,
   faPencilAlt,
   faPlusCircle,
-  faTrash
+  faTrash,
+  faCloudUploadAlt
 } from '@fortawesome/free-solid-svg-icons'
 import { Auth0Provider } from './react-auth0-wrapper'
 import { App } from "./App"
@@ -25,7 +26,8 @@ library.add(
   faPhoneAlt,
   faPlusCircle,
   faPencilAlt,
-  faTrash
+  faTrash,
+  faCloudUploadAlt
 )
 
 // A function that routes the user to the right place

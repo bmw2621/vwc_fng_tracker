@@ -1,1 +1,5 @@
 export { TroopGrid } from './TroopGrid'
+export { TroopDetailRow } from './TroopDetailRow'
+export { ApplicantDetailRow } from './ApplicantDetailRow'
+export { TroopAbout } from './TroopAbout'
+export { DetailRowHeader } from './DetailRowHeader'

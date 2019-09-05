@@ -1,7 +1,8 @@
 import { runMutation } from '../helpers'
 
-const saveAccount = (store, data) => {
-  runMutation(data)
+const saveAccount = async (store, data) => {
+  const result = await runMutation(data)
+  return result
 }
 
 export { saveAccount }

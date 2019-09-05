@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 // import { makeMainRoutes } from './routing/routes'
 import * as serviceWorker from './serviceWorker'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { dom, library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { AUTH_CONFIG } from './auth_config'
 import {
@@ -13,7 +13,12 @@ import {
   faPencilAlt,
   faPlusCircle,
   faTrash,
-  faCloudUploadAlt
+  faCloudUploadAlt,
+  faBold,
+  faItalic,
+  faFileImage as faFileImageO,
+  faListUl,
+  faLink
 } from '@fortawesome/free-solid-svg-icons'
 import { Auth0Provider } from './react-auth0-wrapper'
 import { App } from "./App"
@@ -27,9 +32,15 @@ library.add(
   faPlusCircle,
   faPencilAlt,
   faTrash,
-  faCloudUploadAlt
+  faCloudUploadAlt,
+  faBold,
+  faItalic,
+  faFileImageO,
+  faListUl,
+  faLink
 )
 
+dom.watch()
 // A function that routes the user to the right place
 // after login
 const onRedirectCallback = appState => {

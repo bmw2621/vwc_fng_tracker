@@ -1,4 +1,4 @@
-import { ratingTypesQuery } from '../queries'
+import { ratingTypesQuery, specificRatingTypesQuery } from '../queries'
 import { runQuery, runMutation } from '../helpers'
 import { doDelete } from './doDelete'
 import { setState } from './setState'
@@ -11,7 +11,13 @@ export const fetchRatingTypes =
 
 export const fetchSpecificRatingTypes =
   async (store, associatedWith) => {
-
+  const result =
+    await runQuery(specificRatingTypesQuery(associatedWith))
+  store.setState({
+    ratingTypes: result['ratingTypes'],
+    ratingTypesLoaded: true
+  })
+  return result
 }
 
 export const addRatingType =
@@ -34,7 +40,6 @@ export const fetchRatings =
 export const saveRating =
   async (store, item) => {
   const mResult = await runMutation(item)
-  setState(store, { selectedApplicantLoaded: false })
   return mResult
 }
 

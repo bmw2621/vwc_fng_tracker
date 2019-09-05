@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGlobal } from '../../store'
 import {
   Grid,
@@ -13,30 +13,17 @@ import { CommentForm } from '../CommentForm'
 import moment from 'moment'
 
 export const Comment = (props) => {
-  const comment = props.comment
-  const applicantUid = props.applicantUid
-  const user = props.user
+  const {
+    comment,
+    applicantUid,
+    user,
+    personType
+  } = props
+  const [formVisible, setFormVisible] = useState(false)
   const [globalState, globalActions] = useGlobal()
-  const { setState, doDelete, fetchApplicant } = globalActions
-  const { currentComment } = globalState
-  let showForm =
-    comment.editing || comment.uid === currentComment.uid
-
+  const { saveComment, fetchTroopsComments, doDelete } = globalActions
   const handleEdit = (event) => {
-    comment.editing = true
-    setState({currentComment: comment})
-  }
-
-  const handleDelete = (event) => {
-    const data = {
-      uid: applicantUid,
-      hasComment: {
-        uid: comment.uid
-      }
-    }
-
-    doDelete(data)
-    fetchApplicant(applicantUid)
+    setFormVisible(true)
   }
 
   const blankComment = {
@@ -48,52 +35,86 @@ export const Comment = (props) => {
     commentDate: new Date()
   }
 
-  const handleCancel = (event) => {
-    setState({currentComment: blankComment})
-    comment.editing = false
+  const handleDelete = (event) => {
+    const item = {
+      uid: applicantUid,
+      hasComment: {
+        uid: comment.uid
+      }
+    }
+    doDelete(item)
+    .then(() => fetchTroopsComments(personType))
   }
 
-  const showCommentForm = () => {
+  const handleCancel = (event) => {
+    setFormVisible(false)
+  }
+
+  const handleSave = (values) => {
+    const data = {
+      uid: applicantUid,
+      hasComment: {
+        uid: values.uid,
+        text: values.text,
+        edited: values.edited,
+        commenterName: values.commenterName,
+        commentDate: values.commentDate
+      }
+    }
+
+    saveComment(data)
+      .then(() => {
+        fetchTroopsComments(personType)
+        setFormVisible(false)
+      })
+  }
+
+  const commentForm = () => {
     return (
       <CommentForm
         applicantUid={ applicantUid }
         comment={ comment }
-        editing={ true }
-        onCancel={ handleCancel}
+        handleCancel={ handleCancel }
+        handleSave={ handleSave }
         user={ user }
       />
     )
   }
 
-  const showComment = () => {
+  const commentItem = () => {
     return (
-      <Grid className="comment" container>
-        <Grid item xs={12} style={{marginBottom: 0, paddingBottom: 0}}>
-          <Card style={{fontSize: 0.5, marginBottom: 10}}>
-            <Grid container>
-              <Grid item xs={ 10 }>
-                <CardContent style={{paddingBottom: 0}}>
-                  <TypoGraphy color="primary">{ comment.commenterName }</TypoGraphy> <small>commented on <strong>{ moment(comment.commentDate).format('MMMM Do YYYY, h:mm:ss a') }</strong>
+      <div>
+        <Card style={{ fontSize: 0.5, marginBottom: 10 }}>
+          <Grid container>
+            <Grid item xs={ 9 }>
+              <CardContent style={{paddingBottom: 0}}>
+                <TypoGraphy color="primary">
+                  { comment.commenterName }
+                </TypoGraphy>
+                <small>commented on&nbsp;
+                  <strong>
+                    { moment(comment.commentDate).format('MMMM Do YYYY, h:mm:ss a') }
+                  </strong>
                   { comment.edited ? ( <em> (edited)</em>) : ('') }
-                  </small>
-                </CardContent>
-              </Grid>
-              <Grid item xs={ 2 } style={{textAlign: 'right', alignItems: 'right'}}>
-                <CardActions style={{textAlign: 'right', alignItems: 'right', paddingRight: 20}}>
-									<Button size="small" color="primary" onClick={ handleEdit }>Edit</Button>
-									<Button size="small" color="secondary" onClick={ handleDelete }>Delete</Button>
-                </CardActions>
-              </Grid>
-              <Grid item xs={ 12 }>
-                <CardContent style={{paddingTop: 0, paddingBottom: 0}}>
-                  <ReactMarkdown source={ comment.text } />
-                </CardContent>
-              </Grid>
+                </small>
+              </CardContent>
             </Grid>
-          </Card>
-        </Grid>
-      </Grid>
+            <Grid item xs={ 2 } style={{ textAlign: 'right', alignItems: 'right' }}>
+              <CardActions style={{ textAlign: 'right', alignItems: 'right', paddingRight: 20 }}>
+                <Button size="small" color="primary" onClick={ handleEdit }>Edit</Button>
+                <Button size="small" color="secondary" onClick={ handleDelete }>Delete</Button>
+              </CardActions>
+            </Grid>
+            <Grid item xs={ 11 }>
+              <CardContent style={{paddingTop: 0, paddingBottom: 0}}>
+                <ReactMarkdown source={ comment.text } />
+              </CardContent>
+            </Grid>
+          </Grid>
+        </Card>
+      </div>
     )
   }
-  return showForm ? showCommentForm() : showComment()
+
+  return formVisible ? commentForm() : commentItem()
 }

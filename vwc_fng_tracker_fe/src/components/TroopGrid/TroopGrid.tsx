@@ -7,10 +7,12 @@ import {
 } from '@material-ui/core'
 import {
   FilteringState,
+  SelectionState,
   IntegratedFiltering,
   EditingState,
   PagingState,
-  IntegratedPaging
+  IntegratedPaging,
+  IntegratedSelection
 } from '@devexpress/dx-react-grid'
 import {
   Grid as TableGrid,
@@ -19,12 +21,15 @@ import {
   TableEditRow,
   TableEditColumn,
   PagingPanel,
-  TableFilterRow
+  TableFilterRow,
+  TableSelection,
+  TableRowDetail
 } from '@devexpress/dx-react-grid-material-ui'
 import {
   SortingState,
   IntegratedSorting,
-  DataTypeProvider
+  DataTypeProvider,
+  RowDetailState
 } from '@devexpress/dx-react-grid'
 import { DatePicker } from '../DatePicker'
 import { FileInput } from '../FileInput'
@@ -32,6 +37,9 @@ import { useGlobal } from '../../store'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import Papa from 'papaparse'
+import './TroopGrid.scss'
+import { ApplicantDetailRow } from './'
+import { BehaviorSubject, combineLatest } from 'rxjs'
 
 export const TroopGrid = (props) => {
   const [
@@ -42,36 +50,92 @@ export const TroopGrid = (props) => {
   const {
     setState,
     fetchTroops,
+    fetchTroopsTasks,
+    fetchTroopsAccounts,
+    fetchTroopsRatings,
+    fetchTroopsComments,
+    fetchAccountTypes,
+    fetchAssociatedTasks,
+    fetchSpecificRatingTypes,
     saveTroop,
     deleteTroop,
     navigate
   } = globalActions
 
-  const { troops, troopsLoaded } = globalState
+  const {
+    troops,
+    troopsTasks,
+    troopsAccounts,
+    troopsRatings,
+    troopsComments,
+    troopsLoaded,
+    troopGridSelection,
+    associatedTasks,
+    accountTypes,
+    accountTypesLoaded,
+    tasksLoaded,
+    ratingTypesLoaded
+  } = globalState
 
+  const { personType, user } = props
   const blankTroop = {
     uid: '_:uid',
     type: 'person',
     pesronType: props.personType
   }
 
-  const rows = troops || []
+  const troops$ = new BehaviorSubject(troops)
+  const tasks$ = new BehaviorSubject(troopsTasks)
+  const accounts$ = new BehaviorSubject(troopsAccounts)
+  const comments$ = new BehaviorSubject(troopsComments)
+  const ratings$ = new BehaviorSubject(troopsRatings)
+
+  let rows = []
+
+  combineLatest(
+    troops$,
+    tasks$,
+    accounts$,
+    comments$,
+    ratings$
+  ).subscribe(([lTroops, lTasks, lAccounts, lComments, lRatings]) => {
+    rows = lTroops.map((lTroop, index) => {
+      return {
+        ...{
+          comments: [],
+          accounts: [],
+          tasks: [],
+          ratings: []
+        },
+        ...lTroop,
+        ...lTasks[index],
+        ...lAccounts[index],
+        ...lComments[index],
+        ...lRatings[index]
+      }
+    })
+  })
+
+  const editingStateColumnExtensions = [
+    { columnName: '', editingEnabled: false }
+  ]
+
   const columns = [
     {
       name: 'lastName',
-      title: 'First Name'
+      title: 'Last Name'
     },
     {
       name: 'firstName',
-      title: 'Last Name'
+      title: 'First Name'
     },
     {
       name: 'email',
       title: 'Email'
     },
     {
-      name: 'dateApplied',
-      title: 'Date Applied'
+      name: 'phoneNumber',
+      title: 'Phone'
     },
     {
       name: 'country',
@@ -117,7 +181,7 @@ export const TroopGrid = (props) => {
     <Checkbox
       checked={ value }
       value={ value }
-      onChange={event => onValueChange(event.target.value)} />
+      onChange={event => onValueChange(event.target.checked)} />
   )
 
   const BooleanTypeProvider = props => (
@@ -134,11 +198,11 @@ export const TroopGrid = (props) => {
       { ...props }
     />
   )
-  const DateFormatter = ({ value }) => moment(value).format('YYYY-MM-DD')
+  const DateFormatter = ({ value }) => value ? moment(value).format('YYYY-MM-DD') : null
   const DateEditor = ({ value, onValueChange }) => (
     <DatePicker
       value={ value }
-      handleChange={ onValueChange }
+      handleChange={ event => onValueChange(event.target.value) }
       format={ 'YYYY-MM-DD' }/>
   )
 
@@ -148,6 +212,21 @@ export const TroopGrid = (props) => {
       editorComponent={DateEditor}
       {...props}
     />)
+
+  const RowDetail = ({ row }) => {
+    const component = {
+      applicant: (
+        <ApplicantDetailRow
+          user={ user }
+          row={ row } />
+      ),
+      candidate: (<div>Placeholder</div>),
+      student: (<div>Placeholder</div>),
+      mentor: (<div>Placeholder</div>)
+    }
+
+    return component[personType]
+  }
 
   const getRowUid = row => row.uid
   const getRowActive = row => row.active
@@ -207,7 +286,13 @@ export const TroopGrid = (props) => {
   }
 
   useEffect(() => {
-    !troopsLoaded && fetchTroops(props.personType)
+    if(!troopsLoaded) {
+      fetchTroops(personType)
+      fetchTroopsAccounts(personType)
+      fetchTroopsComments(personType)
+      fetchTroopsRatings(personType)
+      fetchTroopsTasks(personType)
+    }
   })
 
   return (
@@ -229,37 +314,33 @@ export const TroopGrid = (props) => {
             columns={ columns }
             getRowId={ getRowUid }>
             <BooleanTypeProvider for={ ['active'] } />
-            <DateTypeProvider for={ ['dateApplied'] } />
+            <DateTypeProvider for={ ['dateApplied', 'dateStartedPrework'] } />
             <EmailTypeProvider for={ ['email'] } />
             <SortingState
               defaultSorting={[
-                { columnName: 'uid', direction: 'asc' },
                 { columnName: 'lastName', direction: 'asc' },
-                { columnName: 'firstName', direction: 'asc'},
-                { columnName: 'email', direction: 'asc'},
-                { columnName: 'dateApplied', direction: 'asc'},
-                { columnName: 'country', direction: 'asc'},
-                { columnName: 'city', direction: 'asc'},
-                { columnName: 'state', direction: 'asc'},
-                { columnName: 'active', direction: 'asc'}
               ]}
             />
             <IntegratedSorting />
             <FilteringState
               defaultFilters={ [] }
-              columnExtensions={ filteringStateColumnExtensions }/>
+              columnExtensions={ filteringStateColumnExtensions } />
             <IntegratedFiltering />
-            <EditingState onCommitChanges={ commitChanges } />
+            <EditingState
+              onCommitChanges={ commitChanges }
+              columnExtensions={editingStateColumnExtensions} />
             <PagingState
               defaultCurrentPage={0}
               pageSize={10}
-            />
+              />
+            <RowDetailState />
             <IntegratedPaging />
             <Table/>
             <TableFilterRow />
             <TableHeaderRow
               showSortingControls
             />
+            <TableRowDetail contentComponent={RowDetail} />
             <TableEditColumn
               showAddCommand
               showEditCommand

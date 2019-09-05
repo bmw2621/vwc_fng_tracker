@@ -8,11 +8,6 @@ export const Account = (props) => {
     display: 'none'
   }
 
-  const liStyles = {
-    listStyleType: 'none',
-    padding: 0.5
-  }
-
 
   const hiddenLinkRender = (props, ref) => {
     const url = () =>
@@ -35,7 +30,7 @@ export const Account = (props) => {
   }
 
   return (
-    <li key={`account-${ props.itemIndex }`} style={ liStyles }>
+    <span>
       <HiddenLink
         ref={ clickRef }
         accountName={ props.accountName }
@@ -51,6 +46,7 @@ export const Account = (props) => {
         onDelete={ props.onDelete }
         onClick={ handleClick }
         clickable />
-    </li>
+      &nbsp;
+    </span>
   )
 }

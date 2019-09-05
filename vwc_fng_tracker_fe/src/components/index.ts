@@ -18,3 +18,4 @@ export {
 } from './Ratings'
 export { TroopGrid } from './TroopGrid'
 export { FileInput } from './FileInput'
+export { AccountsList } from './AccountsList'

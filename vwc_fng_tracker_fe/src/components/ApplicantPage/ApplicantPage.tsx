@@ -6,7 +6,6 @@ import 'github-calendar/dist/github-calendar-responsive.css'
 import { useGlobal } from '../../store'
 import { withRouter } from 'react-router'
 import { AccountsList } from '../AccountsList'
-import { Comments } from '../Comments'
 import { TaskList } from '../Tasks'
 import { RatingsList } from '../Ratings'
 import PropTypes from 'prop-types'
@@ -85,8 +84,8 @@ const ApplicantPg = (props) => {
 
   return (
     <Grid container>
-      <Grid item xs={2}>&nbsp;</Grid>
-      <Grid item xs={8}>
+      <Grid item xs={1}>&nbsp;</Grid>
+      <Grid item xs={10}>
         <Grid container spacing={2}>
           <Grid item xs={10}>
             <h3>Applicant: {selectedApplicant.firstName} {selectedApplicant.lastName}</h3>
@@ -102,15 +101,6 @@ const ApplicantPg = (props) => {
             <FontAwesomeIcon icon="phone-alt" ></FontAwesomeIcon> <strong>Phone: </strong><a href={`tel:${selectedApplicant.phoneNumber}`}>{selectedApplicant.phoneNumber}</a> <br /> <br />
             <FontAwesomeIcon icon="calendar-alt" ></FontAwesomeIcon> <strong>Joined: </strong> {new Date(selectedApplicant.dateJoined).toLocaleDateString()} <br /> <br />
             <strong>Active: </strong> {`${selectedApplicant.active}`}<br /> <br />
-            { selectedApplicantLoaded && accountsList() }
-            <TaskList
-              ownerUid={ selectedApplicant.uid }
-              associatedTasks={ associatedTasks || [] }
-              completedTasks={ selectedApplicant.completedTasks || []}
-              personType={ selectedApplicant.personType }
-              handleChange={ handleTaskChange }/>
-            <br />
-            <RatingsList />
           </Grid>
 
             <Grid item xs={8} style={{marginTop: 0, paddingTop: 0}}>
@@ -119,12 +109,11 @@ const ApplicantPg = (props) => {
                 <div className={ `calendar calendar-responsive calendar-${applicantUid}` } />
               </Paper>
               <Grid item xs={12} className="commentsContainer">
-                <Comments comments={ comments } applicantUid={ applicantUid } user={ user } />
               </Grid>
             </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={2}>&nbsp;</Grid>
+      <Grid item xs={1}>&nbsp;</Grid>
     </Grid>
   )
 }

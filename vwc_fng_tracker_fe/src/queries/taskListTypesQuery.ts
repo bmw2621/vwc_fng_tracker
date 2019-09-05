@@ -5,7 +5,7 @@ export const taskListTypesQuery = (): string => {
         uid
         associatedWith
         name
-        taskTypes: hasTaskTypes {
+        taskTypes: hasTaskTypes(orderasc: displayOrder) {
           uid
           ownerUid
           name

@@ -1,34 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGlobal } from '../../store'
 import { Grid } from '@material-ui/core'
+import './Comments.scss'
 import { Comment } from '../Comment'
 import { CommentForm } from '../CommentForm'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { BehaviorSubject } from 'rxjs'
 
 export const Comments = (props) => {
-  const applicantUid = props.applicantUid
-  const user = props.user
-  const comments = props.comments || []
-  const [globalState, globalActions] = useGlobal()
-  const { setState } = globalActions
-  const { currentComment } = globalState
+  const {
+    applicantUid,
+    personType,
+    user,
+    comments
+  } = props
+  const [globalState, globalActions] =
+    useGlobal()
+  const {
+    saveComment,
+    fetchTroopsComments
+  } = globalActions
 
-  let showForm =
-    currentComment.editing && currentComment.uid === '_:newComment'
+  const [formVisible, setFormVisible] =
+    useState(false)
 
-  const commentsList = comments.map((comment, index) => {
-    return (
-      <Comment
-        key={ `comment-${ index }` }
-        comment={ comment }
-        applicantUid={ applicantUid }
-        user={ user }
-      />)
+  const [commentsList, setCommentsList] =
+    useState(comments)
+
+  const comments$ =
+    new BehaviorSubject(commentsList)
+
+  let list
+
+  comments$.subscribe(() => {
+    list = commentsList
+      .map((comment, index) => {
+        return (
+          <Comment
+            key={ `comment-${ index }` }
+            comment={ comment }
+            applicantUid={ applicantUid }
+            user={ user }
+            personType={ personType }/>
+        )
+      })
   })
 
   const blankComment = {
     uid: '_:newComment',
-    editing: false,
     edited: false,
     text: '',
     date: new Date(),
@@ -37,50 +56,63 @@ export const Comments = (props) => {
   }
 
   const handleNew = (event) => {
-    setState({currentComment: Object.assign(blankComment, {editing: true})})
-    showForm = true
+    setFormVisible(true)
   }
 
   const handleCancel = (event) => {
-    setState({currentComment: blankComment})
-    showForm = false
+    setFormVisible(false)
   }
 
-  const showCommentForm = () => {
+  const handleSave = (values) => {
+    const data = {
+      uid: applicantUid,
+      hasComment: {
+        uid: values.uid,
+        text: values.text,
+        edited: values.edited,
+        commenterName: values.commenterName,
+        commentDate: values.commentDate
+      }
+    }
+
+    saveComment(data)
+      .then(() => {
+        fetchTroopsComments(personType)
+        setFormVisible(false)
+      })
+  }
+
+  const commentForm = () => {
     return (
       <CommentForm
         applicantUid={ applicantUid }
-        comment={ currentComment }
-        editing={ false }
-        onCancel={ handleCancel }
-        user={ user }
+        comment={ blankComment }
+        handleCancel={ handleCancel }
+        handleSave={ handleSave }
       />
     )
   }
 
-  const dontShowCommentForm = () => {
-    return (
-      <Grid container>
-        <Grid item xs={ 12 } style={{textAlign: 'right'}}>
+  return (
+    <div className="commentsOuterContainer">
+      <strong>
+        { comments.length } COMMENT{ comments.length === 1 ? '' : 'S'}
+        </strong>
+        {!formVisible && (
           <span onClick={ handleNew }>
+            &nbsp; &nbsp; &nbsp;
             <FontAwesomeIcon
-              style={ {color: 'green'} }
+              style={ {color: 'green', cursor: 'hand'} }
               icon="plus-circle"
               size="lg"
             />
           </span>
-        </Grid>
-      </Grid>
-    )
-  }
-
-  return (
-    <Grid className="commentsComponent" container>
-      <Grid item xs={12}><h3>Comments</h3></Grid>
-      <Grid item xs={ 12 } className="comments">
-        { commentsList }
-      </Grid>
-      { showForm ? showCommentForm() : dontShowCommentForm() }
-    </Grid>
+        )}
+      <br/>
+      <div className="commentsContainer">
+        { formVisible && commentForm() }
+        { list }
+      </div>
+    </div>
   )
 }

@@ -48,7 +48,7 @@ export const NavBar = (props) => {
     <AppBar color="primary" position="static" style={{marginBottom: 5}}>
       <Toolbar  variant="dense">
         <Grid container>
-          <Grid item xs={ 2 }>&nbsp;</Grid>
+          <Grid item xs={ 1 }>&nbsp;</Grid>
           <Grid item xs={ 4 }>
             <TypoGraphy
               variant="h6"
@@ -56,7 +56,7 @@ export const NavBar = (props) => {
               { `${process.env.REACT_APP_WEBSITE_NAME}`}
               </TypoGraphy>
           </Grid>
-          <Grid item xs={ 4 } style={{textAlign: 'right',alignItems: 'right'}}>
+          <Grid item xs={ 6 } style={{textAlign: 'right',alignItems: 'right'}}>
             <Button disabled={ true } key={`nbBtn0`} color="inherit">DASHBOARD</Button>&nbsp;|&nbsp;
             <Button key={`nbBtn1`} color="inherit" onClick={ handleApplicantClick }>APPLICANTS</Button>&nbsp;|&nbsp;
             <Button key={`nbBtn2`} color="inherit" onClick={ handleTaskListTypesClick }>TASKLIST TYPES</Button>&nbsp;|&nbsp;
@@ -71,7 +71,7 @@ export const NavBar = (props) => {
               )
             }
           </Grid>
-          <Grid item xs={ 2 }>&nbsp;</Grid>
+          <Grid item xs={ 1 }>&nbsp;</Grid>
         </Grid>
       </Toolbar>
     </AppBar>

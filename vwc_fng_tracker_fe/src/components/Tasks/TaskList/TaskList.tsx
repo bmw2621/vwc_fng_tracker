@@ -1,37 +1,52 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Checkbox, Grid, Paper } from '@material-ui/core'
+import { useGlobal } from '../../../store'
+import { BehaviorSubject } from 'rxjs'
 
 export const TaskList = (props) => {
-  const { associatedTasks, completedTasks, handleChange } = props
-  const cTasks = completedTasks
-  const _tasks = associatedTasks
-    .map((aTask) => {
-      const cTask = cTasks.filter((cTask) => cTask.taskTypeId === aTask.taskTypeId)[0]
-      return { ...aTask, ...cTask }
-    })
+  const [globalState, globalActions] = useGlobal()
+  const { associatedTasks, tasksLoaded } = globalState
+  const { fetchAssociatedTasks } = globalActions
 
-    const tasks = () => _tasks.map((task, index) => {
-    return (
-      <Grid key={ `task-${index}` }>
-        <Checkbox
-          checked={ task.completed }
-          value={ task.completed }
-          onChange={ event => handleChange(event, task) }
-          disabled={ task.completed }/>&nbsp;
+  const { completedTasks, handleChange, personType } = props
+  const cTasks = completedTasks || []
 
-          { task.name }
-      </Grid>
+  let tasks
+  const tasks$ = new BehaviorSubject(associatedTasks)
+  tasks$.subscribe((_associatedTasks) => {
+    const _tasks = _associatedTasks
+      .map((aTask) => {
+        const cTask = cTasks
+          .filter((cTask) => cTask.taskTypeId === aTask.taskTypeId)[0]
+        return { ...aTask, ...cTask }
+      })
+
+    tasks = _tasks.map((task, index) => (
+        <div key={ `task-${index}` }>
+          <Checkbox
+            checked={ task.completed }
+            value={ task.completed }
+            onChange={ event => handleChange(event, task) }
+          />&nbsp;
+
+          <span className={ task.completed && 'strike' }>{ task.name }</span>
+        </div>
+      )
     )
   })
 
+  useEffect(() => {
+    if(!tasksLoaded) {
+      fetchAssociatedTasks(personType)
+    }
+  })
+
   return(
-    <Grid container>
-      <Grid item xs={ 12 }>
-        <h5>Current Task List</h5>
-        <Paper>
-          { tasks() }
-        </Paper>
-      </Grid>
-    </Grid>
+    <div>
+      <strong>CURRENT TASK LIST</strong>
+      <div className="currentTaskList">
+        { tasks }
+      </div>
+    </div>
   )
 }

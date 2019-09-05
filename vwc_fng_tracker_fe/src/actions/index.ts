@@ -30,12 +30,17 @@ export { doDelete } from './doDelete'
 export {
   addRatingType,
   fetchRatingTypes,
+  fetchSpecificRatingTypes,
   saveRatingType,
   deleteRatingType,
   saveRating
 } from './ratings'
 export {
   fetchTroops,
+  fetchTroopsAccounts,
+  fetchTroopsComments,
+  fetchTroopsRatings,
+  fetchTroopsTasks,
   saveTroop,
   deleteTroop
 } from './troops'

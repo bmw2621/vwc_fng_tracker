@@ -31,6 +31,7 @@ export const addCompletedTask = async (store, item) => {
 export const fetchAssociatedTasks = async (store, associatedWith: string) => {
   const tasks = associatedTaskListTypeQuery(associatedWith)
   const taskList = await runQuery(tasks)
+  store.setState({associatedTasks: taskList['taskList'], tasksLoaded: true})
   return taskList
 }
 

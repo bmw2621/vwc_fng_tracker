@@ -11,4 +11,5 @@ export const fetchAccountTypes = async (store) => {
     accountTypesStatus: 'LOADED',
     accountTypesLoaded: true
   })
+  return accountTypes
 }

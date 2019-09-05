@@ -1,0 +1,43 @@
+.MuiTableCell-root {
+  font-size: 0.825rem!important;
+  padding: 0px 16px 0px 16px!important;
+}
+
+hr {
+  background-color: lightgrey;
+  color: lightgrey;
+}
+
+.rb {
+  border-right: 1px solid lightgrey;
+}
+
+.rowDetailAbout {
+  max-height: 10em;
+  overflow: scroll;
+}
+
+.currentTaskList {
+  max-height: 15em;
+  overflow: scroll;
+}
+
+.rowDetail {
+  padding: {
+    bottom: 1em;
+    top: 1em;
+  }
+}
+
+.rowDetailItem {
+  padding: {
+    bottom: 1em;
+    left: 1em;
+    right: 1em;
+    top: 0.5em;
+  }
+}
+
+.strike {
+  text-decoration: line-through;
+}

@@ -11,10 +11,10 @@ import {
 } from '@material-ui/core'
 
 export const AccountForm = (props) => {
+  const { handleSave, handleCancel } = props
   const [globalState, globalActions] = useGlobal()
   const {
     saveAccount,
-    fetchApplicant,
     setState
   } = globalActions
 
@@ -35,7 +35,7 @@ export const AccountForm = (props) => {
         type: values.type
       }
     }
-    doSaveAccount(data)
+    handleSave(data)
   }
 
   const { handleSubmit, handleChange, values } =
@@ -45,17 +45,7 @@ export const AccountForm = (props) => {
     width: 180
   }
 
-  const accountTypes = props.accountTypes
-
-  const handleCancel = () => {
-    setState({newAccount: cleared, showAccountForm: false})
-  }
-
-  const doSaveAccount = (data) => {
-    saveAccount(data)
-    fetchApplicant(props.applicantUid)
-    setState({newAccount: cleared, showAccountForm: false})
-  }
+  const accountTypes = props.accountTypes || []
 
   const optionsList = accountTypes.map((accountType, index) => {
     return (
@@ -69,59 +59,51 @@ export const AccountForm = (props) => {
 
   return(
     <form onSubmit={ handleSubmit }>
-      <input type="hidden" id="applicantUid" value={ props.applicantUid } />
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <FormControl>
-            <InputLabel htmlFor="accountType">Account Type</InputLabel>
-            <Select
-              native
-              style={ selectStyles }
-              value={ values.type }
-              onChange={ handleChange }
-              inputProps={{
-                name: 'type',
-                id: 'type',
-              }}>
-              <option key="accountType-0" value=""></option>
-              { optionsList }
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl>
-            <TextField
-              id="name"
-              name="name"
-              label="Account Name"
-              value={ values.name || ''}
-              onChange={ handleChange }/>
-          </FormControl>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={3}>&nbsp;</Grid>
-        <Grid item xs={3} style={{textAlign: 'right'}}>
-          <Button
-            size="small"
-            variant="contained"
-            type="button"
-            onClick={ handleCancel }
-            color="secondary">
-            Cancel
-          </Button>
-        </Grid>
-        <Grid item xs={3} style={{textAlign: 'right'}}>
-          <Button
-            size="small"
-            variant="contained"
-            type="submit"
-            color="primary">
-            Save
-          </Button>
-        </Grid>
-        <Grid item xs={3}>&nbsp;</Grid>
-      </Grid>
+      <input
+        type="hidden"
+        id="applicantUid"
+        value={ props.applicantUid } />
+      <FormControl>
+        <InputLabel
+          htmlFor="accountType">
+          Account Type
+        </InputLabel>
+        <Select
+          native
+          style={ selectStyles }
+          value={ values.type }
+          onChange={ handleChange }
+          inputProps={{
+            name: 'type',
+            id: 'type',
+          }}>
+          <option key="accountType-0" value=""></option>
+          { optionsList }
+        </Select>
+      </FormControl>
+      &nbsp;
+      <TextField
+        id="name"
+        name="name"
+        label="Account Name"
+        value={ values.name || ''}
+        onChange={ handleChange }/>
+      &nbsp;
+      <Button
+        size="small"
+        variant="contained"
+        type="button"
+        onClick={ handleCancel }
+        color="secondary">
+        Cancel
+      </Button>&nbsp;
+      <Button
+        size="small"
+        variant="contained"
+        type="submit"
+        color="primary">
+        Save
+      </Button>
     </form>
   )
 }

@@ -1,7 +1,8 @@
 import { runMutation } from '../helpers'
 
-const saveComment = (store, comment) => {
-  runMutation(comment)
+const saveComment = async (store, comment) => {
+  const result = await runMutation(comment)
+  return result
 }
 
 export { saveComment }

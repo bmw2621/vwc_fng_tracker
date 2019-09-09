@@ -6,6 +6,7 @@
 An application to track VWC applicant status
 
 ### To run the app locally:
+0. Contact Eddie to get your github email address added to the Auth0 whitelist
 1. Install docker
 2. run `docker pull dgraph/dgraph`
 3. from `vwc_fng_tracker_be`, run `docker-compose -d`

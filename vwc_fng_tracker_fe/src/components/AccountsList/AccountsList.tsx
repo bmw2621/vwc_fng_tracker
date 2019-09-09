@@ -21,7 +21,7 @@ export const AccountsList = (props) => {
   const handleDelete = (event, uid) => {
     const data = {
       uid: ownerUid,
-      ownsAccount: {
+      account: {
         uid: uid
       }
     }
@@ -58,13 +58,15 @@ export const AccountsList = (props) => {
   accounts$.subscribe((_accts) => {
     accountsList = _accts
       .map((account, index) => {
+        const accountType = account.accountType[0] || {}
+        const accountTypeName = accountType.name || ''
         return(
           <Account
             id={ account.uid }
             key={ `account-${account.uid}` }
             itemIndex={ index  || []}
             accountName={ account.name }
-            accountType={ account.type }
+            accountType={ accountTypeName }
             onDelete={ (event) => handleDelete(event, account.uid) }
           />
         )

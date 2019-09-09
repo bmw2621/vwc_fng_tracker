@@ -1,7 +1,7 @@
 export const accountTypesQuery = (): string => {
   return `
     {
-      accountTypes(func:eq(type, "account_type")){
+      accountTypes(func: type(AccountType)){
         uid
         name
       }

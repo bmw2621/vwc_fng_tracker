@@ -1,0 +1,12 @@
+{
+  set {
+    _:person_type1 <dgraph.type> "PersonType" .
+    _:person_type1 <name> "Applicant" .
+    _:person_type2 <dgraph.type> "PersonType" .
+    _:person_type2 <name> "Candidate" .
+    _:person_type3 <dgraph.type> "PersonType" .
+    _:person_type3 <name> "Student" .
+    _:person_type4 <dgraph.type> "PersonType" .
+    _:person_type4 <name> "Mentor" .
+  }
+}

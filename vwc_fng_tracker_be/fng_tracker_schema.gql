@@ -1,0 +1,50 @@
+<about>: string .
+<account>: [uid] @count @reverse .
+<accountType>: [uid] @count @reverse .
+<accountTypes>: [uid] @count @reverse .
+<accounts>: [uid] @count @reverse .
+<active>: bool .
+<appliedDate>: datetime @index(day) .
+<associatedWith>: [uid] @count @reverse .
+<author>: string @index(term) .
+<branch>: string .
+<candidate>: [uid] @count @reverse .
+<city>: string @index(term) .
+<cohort>: [uid] @count @reverse .
+<comment>: [uid] @count @reverse .
+<commentDate>: datetime .
+<completed>: bool .
+<completedDate>: datetime @index(day) .
+<country>: string @index(term) .
+<displayOrder>: int @index(int) .
+<dueDate>: datetime @index(day) .
+<edited>: bool .
+<email>: string @index(term) .
+<endDate>: datetime @index(day) .
+<experience>: string .
+<favoriteMre>: string .
+<firstName>: string @index(fulltext, term, trigram) .
+<hostUrl>: string .
+<lastName>: string @index(fulltext, term, trigram) .
+<mentor>: [uid] @count @reverse .
+<name>: string @index(fulltext, term, trigram) .
+<phone>: int .
+<preworkDeadlineDate>: datetime @index(day) .
+<preworkStartDate>: datetime @index(day) .
+<preworkSubmittedDate>: datetime @index(day) .
+<rating>: [uid] @count @reverse .
+<ratingType>: [uid] @count @reverse .
+<ratingValue>: int .
+<reply>: [uid] @count @reverse .
+<repoUrl>: string .
+<startDate>: datetime @index(day) .
+<state>: string @index(term) .
+<student>: [uid] @count @reverse .
+<submittedDate>: datetime @index(day) .
+<task>: [uid] .
+<taskType>: [uid] @count @reverse .
+<text>: string .
+<type>: string @index(fulltext, term, trigram) .
+<url>: string .
+<value>: int .
+<weightModifier>: int .

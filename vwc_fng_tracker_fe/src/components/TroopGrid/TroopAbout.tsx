@@ -9,10 +9,15 @@ import React from 'react'
  */
 
 export const TroopAbout = (props) => {
-  const { aboutText, experienceText } = props
+  const { aboutText, experienceText, branchText } = props
 
   return (
     <div>
+      <strong color="primary">BRANCH</strong>
+      <div className="rowDetailAbout">
+        { branchText }
+      </div>
+      <br />
       <strong color="primary">EXPERIENCE</strong>
       <div className="rowDetailAbout">
         { experienceText }

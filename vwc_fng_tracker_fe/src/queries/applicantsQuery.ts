@@ -1,7 +1,7 @@
 export const applicantsQuery = (): string => {
   return `
     {
-      applicants(func: eq(personType, "applicant")){
+      applicants(func: type(Applicant)){
         uid
         expand(_all_)
       }

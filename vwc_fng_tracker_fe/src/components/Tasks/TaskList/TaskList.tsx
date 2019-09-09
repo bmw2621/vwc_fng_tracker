@@ -5,16 +5,22 @@ import { BehaviorSubject } from 'rxjs'
 
 export const TaskList = (props) => {
   const [globalState, globalActions] = useGlobal()
-  const { associatedTasks, tasksLoaded } = globalState
-  const { fetchAssociatedTasks } = globalActions
-
-  const { completedTasks, handleChange, personType } = props
+  const {
+    troopsTaskTypes,
+    troopsTaskTypesLoaded
+  } = globalState
+  const { fetchTroopsTaskTypes } = globalActions
+  const {
+    completedTasks,
+    handleChange,
+    personType
+  } = props
   const cTasks = completedTasks || []
 
   let tasks
-  const tasks$ = new BehaviorSubject(associatedTasks)
-  tasks$.subscribe((_associatedTasks) => {
-    const _tasks = _associatedTasks
+  const tasks$ = new BehaviorSubject(troopsTaskTypes)
+  tasks$.subscribe((_troopsTaskTypes) => {
+    const _tasks = _troopsTaskTypes
       .map((aTask) => {
         const cTask = cTasks
           .filter((cTask) => cTask.taskTypeId === aTask.taskTypeId)[0]
@@ -29,15 +35,17 @@ export const TaskList = (props) => {
             onChange={ event => handleChange(event, task) }
           />&nbsp;
 
-          <span className={ task.completed && 'strike' }>{ task.name }</span>
+          <span className={ task.completed && 'strike' }>
+            { task.name }
+          </span>
         </div>
       )
     )
   })
 
   useEffect(() => {
-    if(!tasksLoaded) {
-      fetchAssociatedTasks(personType)
+    if(!troopsTaskTypesLoaded) {
+      fetchTroopsTaskTypes(personType)
     }
   })
 

@@ -4,3 +4,4 @@ vwc_fng_tracker_be/dgraph
 vwc_fng_tracker_be/dgraph/*
 /vwc_fng_tracker_be/dgraph/
 /vwc_fng_tracker_be/dgraph/*
+.DS_Store

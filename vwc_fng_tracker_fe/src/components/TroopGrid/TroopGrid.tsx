@@ -56,7 +56,7 @@ export const TroopGrid = (props) => {
     fetchTroopsComments,
     fetchAccountTypes,
     fetchAssociatedTasks,
-    fetchSpecificRatingTypes,
+    fetchRatingTypes,
     saveTroop,
     deleteTroop,
     navigate
@@ -77,11 +77,12 @@ export const TroopGrid = (props) => {
     ratingTypesLoaded
   } = globalState
 
-  const { personType, user } = props
+  const { user } = props
+  const personType =
+    `${props.personType[0].toUpperCase()}${props.personType.substring(1)}`
   const blankTroop = {
     uid: '_:uid',
     type: 'person',
-    pesronType: props.personType
   }
 
   const troops$ = new BehaviorSubject(troops)
@@ -215,14 +216,14 @@ export const TroopGrid = (props) => {
 
   const RowDetail = ({ row }) => {
     const component = {
-      applicant: (
+      Applicant: (
         <ApplicantDetailRow
           user={ user }
           row={ row } />
       ),
-      candidate: (<div>Placeholder</div>),
-      student: (<div>Placeholder</div>),
-      mentor: (<div>Placeholder</div>)
+      Candidate: (<div>Placeholder</div>),
+      Student: (<div>Placeholder</div>),
+      Mentor: (<div>Placeholder</div>)
     }
 
     return component[personType]
@@ -261,7 +262,9 @@ export const TroopGrid = (props) => {
       return {
         ...item,
         uid: `_:uid-${ index }`,
-        dateApplied: moment(item.dateApplied).toDate()
+        dateApplied: moment(item.dateApplied).toDate(),
+        active: true,
+        'dgraph.type': ['Person', personType]
       }
     })
   }

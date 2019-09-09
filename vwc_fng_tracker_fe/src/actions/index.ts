@@ -8,18 +8,12 @@ export { saveComment } from './comments'
 export { saveAccount } from './accounts'
 export { fetchAccountTypes } from './accountTypes'
 export {
-  fetchTaskLists,
-  saveTaskList,
-  fetchTasks,
   saveTask,
   saveTaskType,
-  deleteTaskType,
   fetchTaskListTypes,
+  fetchTaskTypes,
   saveTaskListType,
-  editTaskListType,
   deleteTaskListType,
-  addTaskListType,
-  addTaskType,
   addCompletedTask,
   fetchAssociatedTasks
 } from './tasks'
@@ -30,7 +24,6 @@ export { doDelete } from './doDelete'
 export {
   addRatingType,
   fetchRatingTypes,
-  fetchSpecificRatingTypes,
   saveRatingType,
   deleteRatingType,
   saveRating
@@ -41,6 +34,7 @@ export {
   fetchTroopsComments,
   fetchTroopsRatings,
   fetchTroopsTasks,
+  fetchTroopsTaskTypes,
   saveTroop,
   deleteTroop
 } from './troops'

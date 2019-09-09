@@ -10,7 +10,8 @@ import {
   troopGridTasksQuery,
   troopGridAccountsQuery,
   troopGridRatingsQuery,
-  troopGridCommentsQuery
+  troopGridCommentsQuery,
+  troopGridTaskTypesQuery
 } from '../queries'
 
 export const fetchTroops =
@@ -32,6 +33,20 @@ export const fetchTroopsTasks =
   store.setState({
     troopsTasks: troopsTasks
   })
+  return troopsTasks
+}
+
+export const fetchTroopsTaskTypes =
+  async(store: any, personType: string) => {
+  const data = await runQuery(troopGridTaskTypesQuery())
+  const troopsTaskTypes = data['taskTypes'] || []
+  const ttt = troopsTaskTypes
+    .filter(taskType => taskType.associatedWith === personType)
+  store.setState({
+    troopsTaskTypesLoaded: true,
+    troopsTaskTypes: ttt
+  })
+  return ttt
 }
 
 export const fetchTroopsComments =

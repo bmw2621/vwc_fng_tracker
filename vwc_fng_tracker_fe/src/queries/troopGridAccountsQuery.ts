@@ -1,12 +1,16 @@
 export const troopGridAccountsQuery =
-  (personType: string): string => (
+  (type: string): string => (
   `
     {
-      troops(func: eq(personType, "${ personType }")) {
+      troops(func: type(Applicant)) {
         uid
-        accounts: ownsAccount {
+        accounts: account {
           uid
-          expand(_all_)
+          name
+          accountType {
+            uid
+            name
+          }
         }
       }
     }

@@ -1,10 +1,10 @@
 export const troopGridCommentsQuery =
-  (personType: string): string => (
+  (type: string): string => (
   `
     {
-      troops(func: eq(personType, "${ personType }")) {
+      troops(func: type(${ type })) {
         uid
-        comments: hasComment (orderdesc: commentDate) {
+        comments: comment (orderdesc: commentDate) {
           uid
           expand(_all_)
         }

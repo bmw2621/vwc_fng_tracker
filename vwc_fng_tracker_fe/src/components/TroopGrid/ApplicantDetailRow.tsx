@@ -21,14 +21,15 @@ import { Comments } from '../Comments'
 export const ApplicantDetailRow = (props) => {
   const [globalState, globalActions] = useGlobal()
   const {
-    addCompletedTask,
+    saveTask,
     fetchTroopsTasks,
     saveRating,
     fetchTroopsRatings
   } = globalActions
   const { row, user } = props
   const {
-		accounts,
+    accounts,
+    branch,
     uid,
     firstName,
     lastName,
@@ -38,10 +39,10 @@ export const ApplicantDetailRow = (props) => {
     ratings,
     tasks,
     comments,
-    personType,
     about,
-    priorExperience
+    experience
   } = row
+  const personType = 'Applicant'
   const accts = accounts || []
   const ghAccount =
     accts.filter((acct) => acct.type === 'github')[0] || {}
@@ -54,23 +55,29 @@ export const ApplicantDetailRow = (props) => {
   const handleTaskUpdate = (event, item) => {
     const obj = {
       uid: uid,
-      hasCompletedTask: {
+      task: {
         uid: '_:uid',
+        'dgraph.type': 'Task',
         completed: true,
-        dateCompleted: new Date(),
+        completedDate: new Date(),
         ...item
       }
     }
 
-    addCompletedTask(obj)
+    saveTask(obj)
       .then(() => fetchTroopsTasks(personType))
   }
 
   const handleRatingUpdate = (event, newValue, item) => {
-    const value  = { value: newValue, ownerUid: uid }
+    const value  = { ratingValue: newValue, ownerUid: uid }
     const formatted = {
       uid: uid,
-      hasRating: { uid: '_:uid', ...item, ...value }
+      rating: {
+        uid: '_:uid',
+        'dgraph.type': 'Rating',
+        ...item,
+        ...value
+      }
     }
     saveRating(formatted)
       .then(() => fetchTroopsRatings(personType))
@@ -96,7 +103,8 @@ export const ApplicantDetailRow = (props) => {
       component: (
         <TroopAbout
           aboutText={ about }
-          experienceText={ priorExperience }
+          experienceText={ experience }
+          branchText={ branch }
         />
       ),
       xs: 3

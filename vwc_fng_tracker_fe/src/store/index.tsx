@@ -29,7 +29,7 @@ const initialState = {
   },
   showAccountForm: false,
   taskListTypes: [],
-  currentTaskListType: {
+  blankTaskListType: {
     uid: '_:newTaskListType',
     name: '',
     editing: false,
@@ -38,6 +38,7 @@ const initialState = {
     hasTaskTypes: []
   },
   taskListTypesLoaded: false,
+  taskTypes: [],
   currentTaskType: {
     uid: '_:newTaskType',
     ownerUid: '',
@@ -80,6 +81,8 @@ const initialState = {
   troops: [],
   troopsLoaded: false,
   troopsTasks: [],
+  troopsTaskTypes: [],
+  troopsTaskTypesLoaded: false,
   troopsRatings: [],
   troopsComments: [],
   troopsAccounts: []

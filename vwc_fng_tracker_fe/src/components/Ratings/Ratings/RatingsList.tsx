@@ -15,7 +15,7 @@ export const RatingsList = (props) => {
   const [globalState, globalActions] = useGlobal()
   const { ratingTypesLoaded, ratingTypes } = globalState
   const {
-    fetchSpecificRatingTypes,
+    fetchRatingTypes,
     fetchTroopsRatings,
     saveRating
   } = globalActions
@@ -31,7 +31,6 @@ export const RatingsList = (props) => {
   ratingTypes$
     .subscribe((rts) => {
       ratings = rts
-        .filter(rt => rt.associatedWith === personType)
         .map(rt => {
           const matchRating = rVals
             .filter(sar => sar.ratingTypeUid === rt.uid)[0] || {}
@@ -45,7 +44,7 @@ export const RatingsList = (props) => {
             ...matchRating
           }
         })
-    })
+      })
 
 
   const ratingsList = ratings.map((rating, index) => {
@@ -58,7 +57,9 @@ export const RatingsList = (props) => {
           id={ `rating-${index}` }
           name={ rating.name }
           value={ rating.value }
-          onChange={ (event, newValue) => handleChange(event, newValue, rating) }
+          onChange={
+            (event, newValue) => handleChange(event, newValue, rating)
+          }
           />
       </Grid>
     )
@@ -66,7 +67,7 @@ export const RatingsList = (props) => {
 
   useEffect(() => {
     if(!ratingTypesLoaded) {
-      fetchSpecificRatingTypes(personType)
+      fetchRatingTypes()
     }
   })
 

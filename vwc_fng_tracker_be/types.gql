@@ -1,0 +1,99 @@
+type Person {
+  firstName: string
+  lastName: string
+  email: string
+  city: string
+  state: string
+  country: string
+  phone: int
+  account: [uid]
+  comment: [uid]
+  rating: [uid]
+}
+
+type Applicant {
+  appliedDate: datetime
+  preworkStartDate: datetime
+  preworkDeadlineDate: datetime
+  preworkSubmittedDate: dateTime
+  task: [uid]
+}
+
+type Candidate {
+  cohort: [uid]
+  task: [uid]
+}
+
+type Student {
+  cohort: [uid]
+  task: [uid]
+  mentor: [uid]
+}
+
+type Mentor {
+  student: [uid]
+}
+
+type Account {
+  name: string
+  accountType: [uid]
+}
+
+type AccountType {
+  name: string
+}
+
+type Rating {
+  name: string
+  ratingValue: int
+  ratingType: [uid]
+}
+
+type RatingType {
+  name: string
+  weightModifier: int
+}
+
+type TaskListType {
+  name: string
+  tasktypes: [uid]
+  associatedWith: [uid]
+}
+
+type TaskList {
+  name: string
+  tasks: [uid]
+}
+
+type TaskType {
+  name: string
+}
+
+type Task {
+  completed: boolean
+  completedDate: datetime
+}
+
+type Cohort {
+  name: string
+  startDate: datetime
+  endDate: datetime
+  candidates: [uid]
+  students: [uid]
+  mentors: [uid]
+}
+
+type Assignment {
+  repoUrl: string
+  hostUrl: string
+  dueDate: string
+  submittedDate: string
+}
+
+type Comment {
+  author: string
+  text: string
+  replies: [uid]
+  edited: boolean
+  commentDate: datetime
+}

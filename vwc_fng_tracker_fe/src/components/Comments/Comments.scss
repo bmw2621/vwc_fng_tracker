@@ -1,9 +1,29 @@
 .md-editor-textarea {
   padding: 1em !important;
   width: inherit !important;
+  height: 8em !important;
+  &:focus, &:active {
+    border: 0 transparent !important;
+    background: #fff !important;
+    border-image: none !important;
+  }
 }
-
+.md-editor-tabs-item {
+	padding: .5em !important;
+  max-height: 1.8em !important;
+  min-height: 1.8em !important;
+  margin: 0 !important;
+}
 .commentsContainer {
   max-height: 18em;
   overflow: scroll;
+}
+.md-editor-header {
+	//height: 2.5em !important;
+  max-height: 2.5em !important;
+  min-height: 2.5em !important;
+}
+.md-editor-menu {
+	top: .15em !important;
+	margin: 0 !important;
 }

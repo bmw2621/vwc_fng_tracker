@@ -1,10 +1,10 @@
 export const troopGridRatingsQuery =
-  (personType: string): string => (
+  (type: string): string => (
   `
     {
-      troops(func: eq(personType, "${ personType }")) {
+      troops(func: type(${ type })) {
         uid
-        ratings: hasRating {
+        ratings: rating {
           uid
           expand(_all_)
         }

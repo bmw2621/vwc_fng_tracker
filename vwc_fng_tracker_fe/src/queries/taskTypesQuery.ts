@@ -1,9 +1,13 @@
 export const taskTypesQuery = (): string => {
   return `
     {
-      taskTypes(func:eq(type, "TaskType")) {
-        uid
-        expand(_all_)
+      taskTypes(func:type(TaskType))@normalize {
+        uid: uid
+        name: name
+        displayOrder: displayOrder
+        ~taskType {
+          taskListTypeUid: uid
+        }
       }
     }
   `

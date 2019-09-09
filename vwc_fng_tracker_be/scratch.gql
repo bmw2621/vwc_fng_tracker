@@ -1,0 +1,10 @@
+{
+  set {
+    <0x4> <weightModifier> "2" .
+    <0x5> <weightModifier> "2" .
+    <0x6> <weightModifier> "1" .
+    <0x7> <weightModifier> "1" .
+    <0x8> <weightModifier> "2" .
+    <0x9> <weightModifier> "1" .
+  }
+}

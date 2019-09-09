@@ -1,0 +1,10 @@
+{
+  set {
+    _:acct_type1 <dgraph.type> "AccountType" .
+    _:acct_type1 <name> "github" .
+    _:acct_type2 <dgraph.type> "AccountType" .
+    _:acct_type2 <name> "linkedin" .
+    _:acct_type3 <dgraph.type> "AccountType" .
+    _:acct_type3 <name> "twitter" .
+  }
+}

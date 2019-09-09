@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGlobal } from '../../store'
 import { useForm } from '../../hooks'
 import {
@@ -23,23 +23,31 @@ export const AccountForm = (props) => {
     uid: '_:a',
     accountType: '',
     name: '',
-    type: ''
+    'dgraph.type': 'Account'
   }
+
+  const [values, setValues] = useState({name: '', accountType: ''})
 
   const save = () => {
     const data = {
       uid: props.applicantUid,
-      ownsAccount: {
+      account: {
         uid: '_:a',
         name: values.name,
-        type: values.type
+        accountType: { uid: values.accountType },
+        'dgraph.type': 'Account'
       }
     }
     handleSave(data)
   }
 
-  const { handleSubmit, handleChange, values } =
-    useForm(save, globalState, 'newAccount', globalActions)
+  const handleChangeName = (event) => {
+    setValues({ ...values, name: event.target.value })
+  }
+
+  const handleSelection = (event) => {
+    setValues({ ...values, accountType: event.target.value })
+  }
 
   const selectStyles = {
     width: 180
@@ -51,14 +59,14 @@ export const AccountForm = (props) => {
     return (
       <option
         key={ `accountType-${index + 1}` }
-        value={ accountType.name }>
+        value={ accountType.uid }>
         {accountType.name}
       </option>
     )
   })
 
   return(
-    <form onSubmit={ handleSubmit }>
+    <form>
       <input
         type="hidden"
         id="applicantUid"
@@ -71,8 +79,8 @@ export const AccountForm = (props) => {
         <Select
           native
           style={ selectStyles }
-          value={ values.type }
-          onChange={ handleChange }
+          value={ values.accountType }
+          onChange={ handleSelection }
           inputProps={{
             name: 'type',
             id: 'type',
@@ -87,7 +95,7 @@ export const AccountForm = (props) => {
         name="name"
         label="Account Name"
         value={ values.name || ''}
-        onChange={ handleChange }/>
+        onChange={ handleChangeName }/>
       &nbsp;
       <Button
         size="small"
@@ -100,8 +108,10 @@ export const AccountForm = (props) => {
       <Button
         size="small"
         variant="contained"
-        type="submit"
-        color="primary">
+        type="button"
+        color="primary"
+        onClick={ save }
+      >
         Save
       </Button>
     </form>

@@ -1,0 +1,96 @@
+{
+  set {
+    _:tl_type1 <dgraph.type> "TaskListType" .
+    _:tl_type1 <name> "Applicant Task List" .
+    _:tl_type2 <dgraph.type> "TaskListType" .
+    _:tl_type2 <name> "Candidate Task List" .
+    _:tl_type3 <dgraph.type> "TaskListType" .
+    _:tl_type3 <name> "Student Task List" .
+    _:tl_type4 <dgraph.type> "TaskListType" .
+    _:tl_type4 <name> "Mentor Task List" .
+    _:task_type0 <dgraph.type> "TaskType" .
+    _:task_type0 <name> "Initial Email Sent" .
+    _:task_type0 <displayOrder> "0" .
+    _:task_type1 <dgraph.type> "TaskType" .
+    _:task_type1 <name> "Initial Interview Scheduled" .
+    _:task_type1 <displayOrder> "1" .
+    _:task_type2 <dgraph.type> "TaskType" .
+    _:task_type2 <name> "Initial Interview Conducted" .
+    _:task_type2 <displayOrder> "2" .
+    _:task_type3 <dgraph.type> "TaskType" .
+    _:task_type3 <name> "Applicant Invited to FB Group" .
+    _:task_type3 <displayOrder> "3" .
+    _:task_type4 <dgraph.type> "TaskType" .
+    _:task_type4 <name> "Applicant Joined to FB Group" .
+    _:task_type4 <displayOrder> "4" .
+    _:task_type5 <dgraph.type> "TaskType" .
+    _:task_type5 <name> "Github Account Recorded" .
+    _:task_type5 <displayOrder> "5" .
+    _:task_type6 <dgraph.type> "TaskType" .
+    _:task_type6 <name> "LinkedIn Account Recorded" .
+    _:task_type6 <displayOrder> "6" .
+    _:task_type7 <dgraph.type> "TaskType" .
+    _:task_type7 <name> "Twitter Account Recorded" .
+    _:task_type7 <displayOrder> "7" .
+    _:task_type8 <dgraph.type> "TaskType" .
+    _:task_type8 <name> "Prework Turned In" .
+    _:task_type8 <displayOrder> "8" .
+    _:task_type9 <dgraph.type> "TaskType" .
+    _:task_type9 <name> "Prework Rated" .
+    _:task_type9 <displayOrder> "9" .
+    _:task_type10 <dgraph.type> "TaskType" .
+    _:task_type10 <name> "Ability Rated" .
+    _:task_type10 <displayOrder> "10" .
+    _:task_type11 <dgraph.type> "TaskType" .
+    _:task_type11 <name> "Education Rated" .
+    _:task_type11 <displayOrder> "11" .
+    _:task_type12 <dgraph.type> "TaskType" .
+    _:task_type12 <name> "Experience Rated" .
+    _:task_type12 <displayOrder> "12" .
+    _:task_type13 <dgraph.type> "TaskType" .
+    _:task_type13 <name> "Attitude Rated" .
+    _:task_type13 <displayOrder> "13" .
+    _:task_type14 <dgraph.type> "TaskType" .
+    _:task_type14 <name> "Need Rated" .
+    _:task_type14 <displayOrder> "14" .
+    _:task_type15 <dgraph.type> "TaskType" .
+    _:task_type15 <name> "Prework Interview Scheduled" .
+    _:task_type15 <displayOrder> "15" .
+    _:task_type16 <dgraph.type> "TaskType" .
+    _:task_type16 <name> "Prework Interview Completed" .
+    _:task_type16 <displayOrder> "16" .
+    _:task_type17 <dgraph.type> "TaskType" .
+    _:task_type17 <name> "Applicant Status Updated" .
+    _:task_type17 <displayOrder> "17" .
+    _:task_type18 <dgraph.type> "TaskType" .
+    _:task_type18 <name> "Applicant Notified of Status Update" .
+    _:task_type18 <displayOrder> "18" .
+    _:task_type19 <dgraph.type> "TaskType" .
+    _:task_type19 <name> "Change to type to Candidate or mark inactive" .
+    _:task_type19 <displayOrder> "19" .
+    _:task_type20 <dgraph.type> "TaskType" .
+    _:task_type20 <name> "Add Candidate to Cohort" .
+    _:task_type20 <displayOrder> "0" .
+    _:tl_type1 <taskType> _:task_type0 .
+    _:tl_type1 <taskType> _:task_type1 .
+    _:tl_type1 <taskType> _:task_type2 .
+    _:tl_type1 <taskType> _:task_type3 .
+    _:tl_type1 <taskType> _:task_type4 .
+    _:tl_type1 <taskType> _:task_type5 .
+    _:tl_type1 <taskType> _:task_type6 .
+    _:tl_type1 <taskType> _:task_type7 .
+    _:tl_type1 <taskType> _:task_type8 .
+    _:tl_type1 <taskType> _:task_type9 .
+    _:tl_type1 <taskType> _:task_type10 .
+    _:tl_type1 <taskType> _:task_type11 .
+    _:tl_type1 <taskType> _:task_type12 .
+    _:tl_type1 <taskType> _:task_type13 .
+    _:tl_type1 <taskType> _:task_type14 .
+    _:tl_type1 <taskType> _:task_type15 .
+    _:tl_type1 <taskType> _:task_type16 .
+    _:tl_type1 <taskType> _:task_type17 .
+    _:tl_type1 <taskType> _:task_type18 .
+    _:tl_type1 <taskType> _:task_type19 .
+    _:tl_type2 <taskType> _:task_type20 .
+  }
+}

@@ -1,0 +1,22 @@
+{
+  set {
+    _:rating_type1 <dgraph.type> "RatingType" .
+    _:rating_type1 <name> "Prework" .
+    _:rating_type1 <weightModifier> "2" .
+    _:rating_type2 <dgraph.type> "RatingType" .
+    _:rating_type2 <name> "Attitude" .
+    _:rating_type2 <weightModifier> "2" .
+    _:rating_type3 <dgraph.type> "RatingType" .
+    _:rating_type3 <name> "Experience" .
+    _:rating_type3 <weightModifier> "1" .
+    _:rating_type4 <dgraph.type> "RatingType" .
+    _:rating_type4 <name> "Education" .
+    _:rating_type4 <weightModifier> "1" .
+    _:rating_type5 <dgraph.type> "RatingType" .
+    _:rating_type5 <name> "Need" .
+    _:rating_type5 <weightModifier> "2" .
+    _:rating_type6 <dgraph.type> "RatingType" .
+    _:rating_type6 <name> "Ability" .
+    _:rating_type6 <weightModifier> "1" .
+  }
+}

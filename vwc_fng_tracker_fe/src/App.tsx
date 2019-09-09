@@ -16,7 +16,8 @@ import {
   ApplicantForm,
   TaskListType,
   RatingTypeList,
-  TroopGrid
+  TroopGrid,
+  TaskListTypeGrid
 } from './components'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -67,7 +68,7 @@ const makeMainRoutes = (user) => {
       }} />
       <Route exact path="/task-list-types" render={ (props) => {
         return (
-          <TaskListType { ...props } user={ user } />
+          <TaskListTypeGrid { ...props } user={ user } />
         )
       }} />
       <Route exact path="/rating-types" render={ (props) => {

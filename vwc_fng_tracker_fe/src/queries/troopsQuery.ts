@@ -1,7 +1,7 @@
-export const troopsQuery = (personType: string): string => {
+export const troopsQuery = (type: string): string => {
   return `
     {
-      troops(func: eq(personType, "${personType}")){
+      troops(func: type(${type})) {
         uid
         expand(_all_)
       }

@@ -1,0 +1,6 @@
+{
+  set {
+    _:ass_type1 <dgraph.type> "Prework" .
+    _:ass_type1 <name> "github" .
+   }
+}

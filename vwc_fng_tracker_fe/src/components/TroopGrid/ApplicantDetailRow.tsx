@@ -51,7 +51,6 @@ export const ApplicantDetailRow = (props) => {
     () => new GithubCalendar(`.calendar-${ uid }`, ghAcctName)
 
   const [ghCalLoaded, setGhCalLoaded] = useState(false)
-
   const handleTaskUpdate = (event, item) => {
     const obj = {
       uid: uid,

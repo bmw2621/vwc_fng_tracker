@@ -50,8 +50,7 @@ export const Comments = (props) => {
     uid: '_:newComment',
     edited: false,
     text: '',
-    date: new Date(),
-    commenterName: user['name'],
+    author: user['name'],
     commentDate: new Date()
   }
 
@@ -66,11 +65,11 @@ export const Comments = (props) => {
   const handleSave = (values) => {
     const data = {
       uid: applicantUid,
-      hasComment: {
+      comment: {
         uid: values.uid,
         text: values.text,
         edited: values.edited,
-        commenterName: values.commenterName,
+        author: values.author,
         commentDate: values.commentDate
       }
     }

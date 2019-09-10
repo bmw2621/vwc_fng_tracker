@@ -31,19 +31,19 @@ export const Comment = (props) => {
     editing: false,
     edited: false,
     text: '',
-    commenterName: user.name,
+    author: user.name,
     commentDate: new Date()
   }
 
   const handleDelete = (event) => {
     const item = {
       uid: applicantUid,
-      hasComment: {
+      comment: {
         uid: comment.uid
       }
     }
     doDelete(item)
-    .then(() => fetchTroopsComments(personType))
+      .then(() => fetchTroopsComments(personType))
   }
 
   const handleCancel = (event) => {
@@ -53,11 +53,11 @@ export const Comment = (props) => {
   const handleSave = (values) => {
     const data = {
       uid: applicantUid,
-      hasComment: {
+      comment: {
         uid: values.uid,
         text: values.text,
         edited: values.edited,
-        commenterName: values.commenterName,
+        author: values.author,
         commentDate: values.commentDate
       }
     }
@@ -89,7 +89,7 @@ export const Comment = (props) => {
             <Grid item xs={ 9 }>
               <CardContent style={{paddingBottom: 0}}>
                 <TypoGraphy color="primary">
-                  { comment.commenterName }
+                  { comment.author }
                 </TypoGraphy>
                 <small>commented on&nbsp;
                   <strong>

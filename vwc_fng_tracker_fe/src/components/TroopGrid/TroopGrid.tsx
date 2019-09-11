@@ -82,7 +82,7 @@ export const TroopGrid = (props) => {
     `${props.personType[0].toUpperCase()}${props.personType.substring(1)}`
   const blankTroop = {
     uid: '_:uid',
-    type: 'person',
+    'dgraph.type': ['Person', personType]
   }
 
   const troops$ = new BehaviorSubject(troops)
@@ -239,6 +239,7 @@ export const TroopGrid = (props) => {
       const addedItem = added[0]
       const item = { ...blankTroop, ...addedItem }
       saveTroop(item)
+        .then(() => setState({troopsLoaded: false}))
       return troops
     }
     if (changed) {

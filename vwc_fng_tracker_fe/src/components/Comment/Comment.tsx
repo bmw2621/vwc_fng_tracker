@@ -17,8 +17,16 @@ export const Comment = (props) => {
     comment,
     applicantUid,
     user,
-    personType
+    personType,
+    handleDelete
   } = props
+  const {
+    uid,
+    text,
+    edited,
+    commentDate,
+    author
+  } = comment
   const [formVisible, setFormVisible] = useState(false)
   const [globalState, globalActions] = useGlobal()
   const { saveComment, fetchTroopsComments, doDelete } = globalActions
@@ -35,17 +43,6 @@ export const Comment = (props) => {
     commentDate: new Date()
   }
 
-  const handleDelete = (event) => {
-    const item = {
-      uid: applicantUid,
-      comment: {
-        uid: comment.uid
-      }
-    }
-    doDelete(item)
-      .then(() => fetchTroopsComments(personType))
-  }
-
   const handleCancel = (event) => {
     setFormVisible(false)
   }
@@ -56,7 +53,7 @@ export const Comment = (props) => {
       comment: {
         uid: values.uid,
         text: values.text,
-        edited: values.edited,
+        edited: true,
         author: values.author,
         commentDate: values.commentDate
       }
@@ -89,25 +86,44 @@ export const Comment = (props) => {
             <Grid item xs={ 9 }>
               <CardContent style={{paddingBottom: 0}}>
                 <TypoGraphy color="primary">
-                  { comment.author }
+                  { author }
                 </TypoGraphy>
                 <small>commented on&nbsp;
                   <strong>
-                    { moment(comment.commentDate).format('MMMM Do YYYY, h:mm:ss a') }
+                    { moment(commentDate).format('MMMM Do YYYY, h:mm:ss a') }
                   </strong>
-                  { comment.edited ? ( <em> (edited)</em>) : ('') }
+                  { edited ? ( <em> (edited)</em>) : ('') }
                 </small>
               </CardContent>
             </Grid>
-            <Grid item xs={ 2 } style={{ textAlign: 'right', alignItems: 'right' }}>
-              <CardActions style={{ textAlign: 'right', alignItems: 'right', paddingRight: 20 }}>
-                <Button size="small" color="primary" onClick={ handleEdit }>Edit</Button>
-                <Button size="small" color="secondary" onClick={ handleDelete }>Delete</Button>
+            <Grid
+              item
+              xs={ 2 }
+              style={{ textAlign: 'right', alignItems: 'right' }}>
+              <CardActions
+                style={{
+                  textAlign: 'right',
+                  alignItems: 'right',
+                  paddingRight: 20
+                }}>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={ handleEdit }>
+                  Edit
+                </Button>
+                <Button size="small"
+                  color="secondary"
+                  onClick={
+                    event => handleDelete(event, uid)
+                  }>
+                  Delete
+                </Button>
               </CardActions>
             </Grid>
             <Grid item xs={ 11 }>
               <CardContent style={{paddingTop: 0, paddingBottom: 0}}>
-                <ReactMarkdown source={ comment.text } />
+                <ReactMarkdown source={ text } />
               </CardContent>
             </Grid>
           </Grid>

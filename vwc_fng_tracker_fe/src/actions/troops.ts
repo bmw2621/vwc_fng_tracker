@@ -13,6 +13,7 @@ import {
   troopGridCommentsQuery,
   troopGridTaskTypesQuery
 } from '../queries'
+import { BehaviorSubject } from 'rxjs'
 
 export const fetchTroops =
   async (store: any, personType: string) => {
@@ -23,6 +24,7 @@ export const fetchTroops =
     troops: troops,
     troopsLoaded: true
   })
+  return troops
 }
 
 export const fetchTroopsTasks =
@@ -50,17 +52,18 @@ export const fetchTroopsTaskTypes =
 }
 
 export const fetchTroopsComments =
-  async(store: any, personType: string) => {
+  async (store: any, personType: string) => {
   const data = await runQuery(troopGridCommentsQuery(personType))
   const troopsComments = data['troops']
 
   store.setState({
     troopsComments: troopsComments
   })
+  return troopsComments
 }
 
 export const fetchTroopsAccounts =
-  async(store: any, personType: string) => {
+  async (store: any, personType: string) => {
   const data = await runQuery(troopGridAccountsQuery(personType))
   const troopsAccounts = data['troops']
 
@@ -72,7 +75,7 @@ export const fetchTroopsAccounts =
 export const fetchTroopsRatings =
   async(store: any, personType: string) => {
   const data = await runQuery(troopGridRatingsQuery(personType))
-  const troopsRatings = data['troops']
+  const troopsRatings = await data['troops']
 
   store.setState({
     troopsRatings: troopsRatings
@@ -87,4 +90,8 @@ export const saveTroop =
 
 export const deleteTroop = (store, item) => {
   doDelete(store, item)
+}
+
+export const deleteTroopComment = (store, item) => {
+  return doDelete(store, item)
 }

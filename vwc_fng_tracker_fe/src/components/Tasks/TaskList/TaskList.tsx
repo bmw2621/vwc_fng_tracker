@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Checkbox, Grid, Paper } from '@material-ui/core'
 import { useGlobal } from '../../../store'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, combineLatest } from 'rxjs'
 
 export const TaskList = (props) => {
   const [globalState, globalActions] = useGlobal()
@@ -15,16 +15,19 @@ export const TaskList = (props) => {
     handleChange,
     personType
   } = props
-  const cTasks = completedTasks || []
 
   let tasks
   const tasks$ = new BehaviorSubject(troopsTaskTypes)
-  tasks$.subscribe((_troopsTaskTypes) => {
+  const completedTasks$ = new BehaviorSubject(completedTasks)
+
+  combineLatest(tasks$, completedTasks$)
+    .subscribe(([_troopsTaskTypes, cTasks]) => {
     const _tasks = _troopsTaskTypes
-      .map((aTask) => {
+    .map((aTask) => {
+        const blank = { uid: '_:uid' } 
         const cTask = cTasks
-          .filter((cTask) => cTask.taskTypeId === aTask.taskTypeId)[0]
-        return { ...aTask, ...cTask }
+          .filter((cTask) => cTask.name === aTask.name)[0]
+        return { ...aTask, ...blank, ...cTask }
       })
 
     tasks = _tasks.map((task, index) => (

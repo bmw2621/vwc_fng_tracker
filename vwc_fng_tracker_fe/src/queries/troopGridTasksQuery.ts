@@ -4,9 +4,11 @@ export const troopGridTasksQuery =
     {
       troops(func: type(${ personType })) {
         uid
-        tasks: task (orderasc: displayOrder){
+        tasks: task {
           uid
-          expand(_all_)
+          name
+          completed
+          completedDate
         }
       }
     }

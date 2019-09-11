@@ -10,7 +10,7 @@ import { useGlobal } from '../../store'
 import GithubCalendar from 'github-calendar'
 import 'github-calendar/dist/github-calendar-responsive.css'
 import { Comments } from '../Comments'
-
+import { BehaviorSubject } from 'rxjs'
 /**
  * @name: ApplicantDetailRow
  * @description:
@@ -24,7 +24,9 @@ export const ApplicantDetailRow = (props) => {
     saveTask,
     fetchTroopsTasks,
     saveRating,
-    fetchTroopsRatings
+    fetchTroopsRatings,
+    fetchTroopsComments,
+    deleteTroopComment
   } = globalActions
   const { row, user } = props
   const {
@@ -42,6 +44,8 @@ export const ApplicantDetailRow = (props) => {
     about,
     experience
   } = row
+
+
   const personType = 'Applicant'
   const accts = accounts || []
   const ghAccount =
@@ -55,11 +59,11 @@ export const ApplicantDetailRow = (props) => {
     const obj = {
       uid: uid,
       task: {
-        uid: '_:uid',
         'dgraph.type': 'Task',
-        completed: true,
-        completedDate: new Date(),
-        ...item
+        completed: event.target.checked,
+        completedDate: event.target.checked ? new Date() : null,
+        name: item.name,
+        uid: item.uid
       }
     }
 
@@ -68,7 +72,7 @@ export const ApplicantDetailRow = (props) => {
   }
 
   const handleRatingUpdate = (event, newValue, item) => {
-    const value  = { ratingValue: newValue, ownerUid: uid }
+    const value  = { ratingValue: newValue }
     const formatted = {
       uid: uid,
       rating: {
@@ -80,6 +84,17 @@ export const ApplicantDetailRow = (props) => {
     }
     saveRating(formatted)
       .then(() => fetchTroopsRatings(personType))
+  }
+
+  const handleCommentDelete = (event, commentUid) => {
+    const item = {
+      uid: uid,
+      comment: {
+        uid: commentUid
+      }
+    }
+    deleteTroopComment(item)
+      .then(() => fetchTroopsComments(personType))
   }
 
 
@@ -113,7 +128,7 @@ export const ApplicantDetailRow = (props) => {
       component: (
         <TaskList
           uid={ uid || '' }
-          completedTasks={ tasks || [] }
+          completedTasks={ tasks }
           handleChange={ handleTaskUpdate }
           personType={ personType || '' }
           />
@@ -126,7 +141,7 @@ export const ApplicantDetailRow = (props) => {
         <RatingsList
           uid={ uid || '' }
           personType={ personType || '' }
-          ratingValues={ ratings || [] }
+          ratingValues={ ratings }
           handleChange={ handleRatingUpdate }
         />
       ),
@@ -144,7 +159,8 @@ export const ApplicantDetailRow = (props) => {
           comments={ comments }
           applicantUid={ uid }
           user={ user }
-          personType={ personType }/>
+          personType={ personType }
+          handleDelete={ handleCommentDelete }/>
       ),
       xs:5
     },

@@ -1,11 +1,11 @@
 export const troopGridTaskTypesQuery = () => (
   `
     {
-      taskTypes(func: type(TaskListType))@normalize {
+      taskTypes(func: type(TaskListType)) @normalize {
         associatedWith {
           associatedWith: name
         }
-        taskType {
+        taskType (orderasc: displayOrder){
           uid: uid
           name: name
           displayOrder: displayOrder

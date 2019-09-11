@@ -45,10 +45,10 @@ export const AccountsList = (props) => {
 
   const handleSave = (item) => {
     saveAccount(item)
-    .then(() => {
-      fetchTroopsAccounts(personType)
-        .then(() => setFormVisible(false))
-    })
+      .then(() => {
+        setFormVisible(false)
+        fetchTroopsAccounts(personType)
+      })
   }
 
   const accts = accounts || []

@@ -36,5 +36,6 @@ export {
   fetchTroopsTasks,
   fetchTroopsTaskTypes,
   saveTroop,
-  deleteTroop
+  deleteTroop,
+  deleteTroopComment
 } from './troops'

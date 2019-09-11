@@ -12,28 +12,28 @@ export const Comments = (props) => {
     applicantUid,
     personType,
     user,
-    comments
+    comments,
+    handleDelete
   } = props
   const [globalState, globalActions] =
     useGlobal()
   const {
     saveComment,
-    fetchTroopsComments
+    fetchTroopsComments,
+    doDelete
   } = globalActions
 
   const [formVisible, setFormVisible] =
     useState(false)
 
-  const [commentsList, setCommentsList] =
-    useState(comments)
-
   const comments$ =
-    new BehaviorSubject(commentsList)
+    new BehaviorSubject(comments)
 
   let list
 
   comments$.subscribe(() => {
-    list = commentsList
+    const _c = comments || []
+    list = _c
       .map((comment, index) => {
         return (
           <Comment
@@ -41,7 +41,8 @@ export const Comments = (props) => {
             comment={ comment }
             applicantUid={ applicantUid }
             user={ user }
-            personType={ personType }/>
+            personType={ personType }
+            handleDelete={ handleDelete }/>
         )
       })
   })
@@ -51,7 +52,8 @@ export const Comments = (props) => {
     edited: false,
     text: '',
     author: user['name'],
-    commentDate: new Date()
+    commentDate: new Date(),
+    'dgraph.type': 'Comment'
   }
 
   const handleNew = (event) => {

@@ -9,6 +9,7 @@ export const runDelete = async (data) => {
     })
     return res.data
   } catch (error) {
+    alert(error)
   } finally {
     await txn.discard()
   }

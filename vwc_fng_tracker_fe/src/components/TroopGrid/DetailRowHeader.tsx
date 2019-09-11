@@ -14,7 +14,7 @@ export const DetailRowHeader = (props) => {
   return(
     <div>
       <strong>
-        { firstName } { lastName } from { city }, { state }, { country }<br /><AccountsList ownerUid={ uid } accounts={ accounts } />
+        { firstName } { lastName } from { city }, { state }, { country }<br /><AccountsList ownerUid={ uid } accounts={ accounts || [] } />
       </strong>
       <hr />
     </div>

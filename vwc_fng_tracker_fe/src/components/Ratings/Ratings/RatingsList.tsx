@@ -20,20 +20,22 @@ export const RatingsList = (props) => {
     saveRating
   } = globalActions
   const blankRatingType = {
-    value: 0,
+    ratingValue: 0,
     ratingTypeUid: '',
+    'dgraph.type': 'Rating',
     ownerUid: uid
   }
   const rVals = ratingValues || []
   let ratings
   const ratingTypes$ = new BehaviorSubject(ratingTypes)
+  const ratingValues$ = new BehaviorSubject(ratingValues)
 
-  ratingTypes$
-    .subscribe((rts) => {
+  combineLatest(ratingTypes$, ratingValues$)
+    .subscribe(([rts, rVals]) =>{
       ratings = rts
         .map(rt => {
           const matchRating = rVals
-            .filter(sar => sar.ratingTypeUid === rt.uid)[0] || {}
+            .filter(sar => rt.name === sar.name)[0] || {}
           return {
             ...blankRatingType,
             ...{
@@ -56,7 +58,7 @@ export const RatingsList = (props) => {
         <Rating
           id={ `rating-${index}` }
           name={ rating.name }
-          value={ rating.value }
+          value={ rating.ratingValue }
           onChange={
             (event, newValue) => handleChange(event, newValue, rating)
           }

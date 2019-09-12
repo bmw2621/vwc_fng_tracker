@@ -32,8 +32,7 @@ export const Comments = (props) => {
   let list
 
   comments$.subscribe(() => {
-    const _c = comments || []
-    list = _c
+    list = comments
       .map((comment, index) => {
         return (
           <Comment

@@ -74,7 +74,11 @@ export const TroopGrid = (props) => {
     accountTypes,
     accountTypesLoaded,
     tasksLoaded,
-    ratingTypesLoaded
+    ratingTypesLoaded,
+    troopsTasksLoaded,
+    troopsRatingsLoaded,
+    troopsAccountsLoaded,
+    troopsCommentsLoaded
   } = globalState
 
   const { user } = props
@@ -135,7 +139,7 @@ export const TroopGrid = (props) => {
       title: 'Email'
     },
     {
-      name: 'phoneNumber',
+      name: 'phone',
       title: 'Phone'
     },
     {
@@ -292,12 +296,28 @@ export const TroopGrid = (props) => {
   useEffect(() => {
     if(!troopsLoaded) {
       fetchTroops(personType)
-      fetchTroopsAccounts(personType)
-      fetchTroopsComments(personType)
-      fetchTroopsRatings(personType)
-      fetchTroopsTasks(personType)
+      .then(() =>{
+        if(!troopsAccountsLoaded){
+          fetchTroopsAccounts(personType)
+            .then(() => {
+              if(!troopsCommentsLoaded) {
+                fetchTroopsComments(personType)
+                .then(() => {
+                  if(!troopsRatingsLoaded){
+                    fetchTroopsRatings(personType)
+                    .then(() => {
+                      if(!troopsTasksLoaded){
+                        fetchTroopsTasks(personType)
+                      }
+                    })
+                    }
+                  })
+              }
+            })
+        }
+      })
     }
-  })
+   })
 
   return (
     <Grid container>

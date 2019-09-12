@@ -33,7 +33,8 @@ export const fetchTroopsTasks =
   const troopsTasks = data['troops']
 
   store.setState({
-    troopsTasks: troopsTasks
+    troopsTasks: troopsTasks,
+    troopsTasksLoaded: true
   })
   return troopsTasks
 }
@@ -57,7 +58,8 @@ export const fetchTroopsComments =
   const troopsComments = data['troops']
 
   store.setState({
-    troopsComments: troopsComments
+    troopsComments: troopsComments,
+    troopsCommentsLoaded: true
   })
   return troopsComments
 }
@@ -68,7 +70,8 @@ export const fetchTroopsAccounts =
   const troopsAccounts = data['troops']
 
   store.setState({
-    troopsAccounts: troopsAccounts
+    troopsAccounts: troopsAccounts,
+    troopsAccountsLoaded: true
   })
 }
 
@@ -78,7 +81,8 @@ export const fetchTroopsRatings =
   const troopsRatings = await data['troops']
 
   store.setState({
-    troopsRatings: troopsRatings
+    troopsRatings: troopsRatings,
+    troopsRatingsLoaded: true
   })
 }
 

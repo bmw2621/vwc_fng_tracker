@@ -81,12 +81,15 @@ const initialState = {
   troops: [],
   troopsLoaded: false,
   troopsTasks: [],
+  troopsTasksLoaded: false,
   troopsTaskTypes: [],
   troopsTaskTypesLoaded: false,
   troopsRatings: [],
+  troopsRatingsLoaded: false,
   troopsComments: [],
   troopsCommentsLoaded: false,
   troopsAccounts: [],
+  troopsAccountsLoaded: false
 }
 
 export const useGlobal = useGlobalHook(React, initialState, actions)

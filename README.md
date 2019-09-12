@@ -21,5 +21,3 @@ An application to track VWC applicant status
 12. Contact Eddie to gain access to the google docs spreadsheet which contains applicant seed data. This should be downloaded as csv and imported through the applicant page's 'import csv' function (data will not show up immediately after import, page will need a refresh (this is a known bug)
 13. Congrats, you now should have a (mostly) functional working copy of the app!
 
-### Caveats
-As of last Friday, a lot of save/delete functions are broken. v1.1 of Dgraph implemented some breaking changes that requires most of the mutation scripts to be rewritten; this is WIP

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@auth0/auth0-spa-js@^1.1.1":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.2.3.tgz#ca903c388cb6704790cb6e5f55a7d64ee19579ae"
-  integrity sha512-8rk6z6Z7dFItggQFv4JdojlHPQ0xqpBXSA1DKALnqifFEn5qkWv/eiFnxtCDQhVRz723xysdup8xgLTvtopndg==
+"@auth0/auth0-spa-js@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@auth0/auth0-spa-js/-/auth0-spa-js-1.3.1.tgz#9b814f111fb15f9dec216b5e341a086604b77d57"
+  integrity sha512-3hCUmhzlS6oA7SEE1reR8ne4fC5BG1+eS6BeGbuZhpHr0KgaYkzIzjzZxkf+RqibZgtiLrpLx+TeahAzGbNsmg==
   dependencies:
     core-js "^3.2.1"
     es-cookie "^1.2.0"

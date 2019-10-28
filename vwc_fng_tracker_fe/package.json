@@ -139,7 +139,7 @@
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-links": "^5.2.4",
     "@storybook/addons": "^5.1.9",
-    "@storybook/react": "^5.1.9"
+    "@storybook/react": "^5.2.5"
   },
   "jest": {
     "verbose": true,

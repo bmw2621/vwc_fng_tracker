@@ -9,7 +9,7 @@ An application to track VWC applicant status
 0. Contact Eddie to get your github email address added to the Auth0 whitelist
 1. Install docker
 2. run `docker pull dgraph/dgraph`
-3. from `vwc_fng_tracker_be`, run `docker-compose -d`
+3. from `vwc_fng_tracker_be`, run `docker-compose up -d`
 4. Navigate to the 'ratel' dash board at 'localhost:9000'
 5. Navigate to the 'schema' tab, and click the 'bulk edit' link at the top
 6. copy/paste the `vwc_fng_tracker_schema.gql` file into the editor and save
